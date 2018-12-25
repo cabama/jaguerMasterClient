@@ -1,11 +1,7 @@
-# Enviroments
-*.env
-
-# MongoDB
-mongo/data/
-
 # react build
-react/dist/*
+react/dist/*.js
+react/dist/*.js.map
+react/dist/*.html
 
 # Logs
 logs
