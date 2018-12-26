@@ -6,6 +6,8 @@ import {
   CardHeader,
   Grid,
   TextField,
+  withTheme,
+  WithTheme
 } from '@material-ui/core'
 import * as React from 'react'
 import { connect } from 'react-redux'
@@ -29,7 +31,7 @@ const blueDivStyle: React.CSSProperties = {
   zIndex: -1,
 }
 
-interface IProps extends IDispatchProps, IStateToProps {
+interface IProps extends IDispatchProps, IStateToProps, WithTheme {
   state: { user: any }
   dispatch: { loginWithEmail: (email: string, password: string) => void }
   history: { push: (url: string) => void },
@@ -58,53 +60,55 @@ export class LoginPage extends React.Component<IProps, IState> {
     const validationErrors = yupValidateForm(formSchema, formValues)
     const isValidForm = formSchema.isValidSync(formValues)
 
+
     if (this.props.state.user.singIn === true) this.props.history.push('/')
     return (
 
-      <View className={ContainerStyle} MenuBar={false} SideMenu={false}>
-        <Card className="Azuron" style={blueDivStyle} />
-        <Grid container={true} justify="center" alignItems="center">
-          <Grid item={true} xs={11} xl={6}>
-            <Card className={CardStyle}>
-              <CardHeader title="LOGIN" />
-              <CardContent>
-                <Grid
-                  container={true}
-                  direction="column"
-                  justify="center"
-                  alignItems="center"
-                  spacing={24}
-                >
-                  <Grid item={true} md={6} xs={12} style={{ width: '100%' }}>
-                    <TextField
-                      error={(this.state.email !== '' && validationErrors && !!validationErrors.email)}
-                      label="Email"
-                      value={this.state.email}
-                      onChange={(event) => this.setState({ email: event.target.value })}
-                      margin="normal"
-                      style={{ width: '100%' }}
-                    />
+        <View className={ContainerStyle} MenuBar={false} SideMenu={false}>
+          <Card className="Azuron" style={{...blueDivStyle, background: this.props.theme.palette.primary.dark }} />
+          <Grid container={true} justify="center" alignItems="center">
+            <Grid item={true} xs={11} xl={6}>
+              <Card className={CardStyle}>
+                <CardHeader title="LOGIN" />
+                <CardContent>
+                  <Grid
+                    container={true}
+                    direction="column"
+                    justify="center"
+                    alignItems="center"
+                    spacing={24}
+                  >
+                    <Grid item={true} md={6} xs={12} style={{ width: '100%' }}>
+                      <TextField
+                        error={(this.state.email !== '' && validationErrors && !!validationErrors.email)}
+                        label="Email"
+                        value={this.state.email}
+                        onChange={(event) => this.setState({ email: event.target.value })}
+                        margin="normal"
+                        style={{ width: '100%' }}
+                      />
+                    </Grid>
+                    <Grid item={true} md={6} xs={12} style={{ width: '100%' }}>
+                      <TextField
+                        label="Password"
+                        type="password"
+                        value={this.state.password}
+                        onChange={(event) => this.setState({ password: event.target.value })}
+                        margin="normal"
+                        style={{ width: '100%' }}
+                      />
+                    </Grid>
                   </Grid>
-                  <Grid item={true} md={6} xs={12} style={{ width: '100%' }}>
-                    <TextField
-                      label="Password"
-                      type="password"
-                      value={this.state.password}
-                      onChange={(event) => this.setState({ password: event.target.value })}
-                      margin="normal"
-                      style={{ width: '100%' }}
-                    />
-                  </Grid>
-                </Grid>
-              </CardContent>
+                </CardContent>
 
-              <CardActions style={{ justifyContent: 'space-around' }}>
-                <Button color="primary" disabled={!isValidForm} onClick={() => this.login()}>Login</Button>
-              </CardActions>
-            </Card>
+                <CardActions style={{ justifyContent: 'space-around' }}>
+                  <Button color="primary" disabled={!isValidForm} onClick={() => this.login()}>Login</Button>
+                </CardActions>
+              </Card>
+            </Grid>
           </Grid>
-        </Grid>
-      </View>
+        </View>
+
     )
   }
 }
@@ -143,7 +147,10 @@ const mapDispatchToProps: (dispatch: any) => IDispatchProps = (dispatch: any) =>
   }
 }
 
-export const Login = connect(
+
+const LoginRedux = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(LoginPage)
+
+export const Login = withTheme()(LoginRedux)
