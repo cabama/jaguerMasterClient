@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const webpack = require('webpack')
 
 module.exports = (env) => {
@@ -69,6 +70,10 @@ module.exports = (env) => {
       new HtmlWebpackPlugin({
         template: './src/index.html'
       }),
+      new CopyWebpackPlugin([
+        { from: __dirname + '/node_modules/react/umd/react.development.js', to: __dirname + "/dist" },
+        { from: __dirname + '/node_modules/react-dom/umd/react-dom.development.js', to: __dirname + "/dist" },
+      ], { debug: true }),
       new webpack.DefinePlugin(envKeys)
     ]
   }
