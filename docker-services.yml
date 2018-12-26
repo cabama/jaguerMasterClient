@@ -2,8 +2,7 @@ version: '3'
 
 services:
   jaguerReact:
-    image: jaguer/react:latest
-    build: react/.
+    image: jager/client
     command: yarn build
     volumes:
       - ./react/dist:/usr/src/jaguer/dist
