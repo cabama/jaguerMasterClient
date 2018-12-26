@@ -19,7 +19,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server --env.REACT_APP_MODE=DEV",
-    "build": "webpack --mode development --env.REACT_APP_MODE=PROD",
+    "build": "webpack --mode=production --env.REACT_APP_MODE=PROD",
     "fix": "tslint --fix -c ./tslint.json 'src/**/*{.ts,.tsx}' verbose"
   },
   "devDependencies": {

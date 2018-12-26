@@ -34,6 +34,6 @@ export class DevEnvironment extends Environment {
 
 export class ProdEnvironment extends Environment {
   constructor () {
-    super('//jagermasters.es')
+    super('//api.jagermasters.es')
   }
 }
