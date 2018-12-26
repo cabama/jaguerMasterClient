@@ -54,7 +54,7 @@ class Drawablemenu extends React.Component<DrawableProps> {
       close()
     }
     return (
-      <ListItem button={true} onClick={onClose}>
+      <ListItem key={String(Math.random())} button={true} onClick={onClose}>
       <ListItemIcon>
         {React.createElement(icon)}
       </ListItemIcon>

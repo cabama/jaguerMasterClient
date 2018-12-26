@@ -2,7 +2,6 @@ import AppBar from '@material-ui/core/AppBar'
 import IconButton from '@material-ui/core/IconButton'
 import { withStyles } from '@material-ui/core/styles'
 import Toolbar from '@material-ui/core/Toolbar'
-import Typography from '@material-ui/core/Typography'
 import MenuIcon from '@material-ui/icons/Menu'
 import * as React from 'react'
 import { connect } from 'react-redux'
@@ -35,7 +34,7 @@ export function MenuBarView (props: any) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="title" color="inherit" style={{flexGrow: 1}}> ReshuHormiguero </Typography>
+          <h4 style={{flexGrow: 1}}> Jager Master C.F.  </h4>
           <AvatarComponent/>
         </Toolbar>
       </AppBar>

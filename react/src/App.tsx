@@ -13,6 +13,9 @@ const theme = createMuiTheme(
       primary: colors.purple,
       secondary: colors.yellow,
     },
+    typography: {
+      useNextVariants: true,
+    },
   },
 )
 
