@@ -1,3 +1,7 @@
+# Nodemodules
+node_modules/
+react/node_modules/
+
 # react build
 react/dist/*.js
 react/dist/*.js.map

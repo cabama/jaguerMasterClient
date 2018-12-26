@@ -9,6 +9,7 @@ import { Profile } from '../../Containers/Profile/Profile'
 import { SignIn } from '../../Containers/SignIn/SignIn'
 import { UserTypes } from '../../Redux/Actions/UserActions'
 import { IUserStore } from '../../Redux/Store/userStore'
+import { Temporada } from '../../Containers/Temporada/Temporada';
 
 interface IPrivateRouteProps extends RouteProps {
   isAuth: boolean
@@ -62,6 +63,7 @@ export class MainViewComponent extends React.Component<MainViewComponentProps> {
             />
             <Route path="/topics" component={Topics} />
             <Route path="/login" component={Login} />
+            <Route path="/temporada" component={Temporada} />
             <Route path="/signIn" component={SignIn} />
           </Switch>
       </Router>

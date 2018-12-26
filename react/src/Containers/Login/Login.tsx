@@ -79,7 +79,6 @@ export class LoginPage extends React.Component<IProps, IState> {
               <Grid item={true} md={6} xs={12} style={{ width: '100%' }}>
                 <TextField
                   error={(this.state.email !== '' && validationErrors && !!validationErrors.email)}
-                  id="standard-name"
                   label="Email"
                   value={this.state.email}
                   onChange={(event) => this.setState({ email: event.target.value })}
@@ -89,7 +88,6 @@ export class LoginPage extends React.Component<IProps, IState> {
               </Grid>
               <Grid item={true} md={6} xs={12} style={{ width: '100%' }}>
                 <TextField
-                  id="standard-name"
                   label="Password"
                   type="password"
                   value={this.state.password}

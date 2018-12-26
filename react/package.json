@@ -19,6 +19,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server --env.REACT_APP_MODE=DEV",
+    "start:mock": "webpack-dev-server --mode=development --env.REACT_APP_MODE=DEV --env.REACT_APP_MOCK=TRUE",
     "build": "webpack --mode=production --env.REACT_APP_MODE=PROD",
     "fix": "tslint --fix -c ./tslint.json 'src/**/*{.ts,.tsx}' verbose"
   },

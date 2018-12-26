@@ -38,6 +38,7 @@ module.exports = (env) => {
         // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
         {
           test: /\.tsx?$/,
+          exclude: /node_modules/,
           loader: "awesome-typescript-loader"
         },
 
@@ -45,11 +46,13 @@ module.exports = (env) => {
         {
           enforce: "pre",
           test: /\.js$/,
+          exclude: /node_modules/,
           loader: "source-map-loader"
         },
         // import all .css style files
         {
           test: /\.css$/,
+          exclude: /node_modules/,
           use: ['style-loader', 'css-loader'],
         }
       ]
@@ -70,6 +73,7 @@ module.exports = (env) => {
       new HtmlWebpackPlugin({
         template: './src/index.html'
       }),
+      // Copy React Modules to dist folder
       new CopyWebpackPlugin([
         { from: __dirname + '/node_modules/react/umd/react.development.js', to: __dirname + "/dist" },
         { from: __dirname + '/node_modules/react-dom/umd/react-dom.development.js', to: __dirname + "/dist" },
