@@ -1,9 +1,10 @@
 import * as React from 'react'
 import { getUrlsEnviroment } from '../../Enviroments'
 import View from '../View/View'
-import { Fetch } from '../../Services/FetchService';
+import { Fetch } from '../../Services/FetchService'
 import { Grid, TableHead, Table, TableRow, TableCell, TableBody } from '@material-ui/core'
-import { temporadaMock } from './temporadaMocks';
+import { temporadaMock } from './temporadaMocks'
+import { TeamRank } from './TeamRankType'
 
 type IProps = {
   history: { push: (url: string) => void },
@@ -23,15 +24,21 @@ export class TemporadaView extends React.Component<IProps, IState> {
   public constructor(props: IProps, state: IState) {
     super(props, state)
     this.state = {
-      clasificacion: { headers: [], rows: []},
+      clasificacion: { headers: [], rows: [] },
       resultados: []
     }
   }
-  
-  public componentDidMount () {
+
+  public componentDidMount() {
     this._isMounted = true
-    this.getClasificacion().then(value => {
-      if (this._isMounted) this.setState({ clasificacion: value })
+    this.getClasificacion().then((value: any) => {
+      if (this._isMounted) {
+        const clasificacion = {
+          headers: Object.keys(value[0]),
+          rows: value
+        }
+        this.setState({ clasificacion })
+      }
     })
   }
 
@@ -53,9 +60,7 @@ export class TemporadaView extends React.Component<IProps, IState> {
               {this.state.clasificacion.rows.map((row: any, index) => {
                 return (
                   <TableRow key={'row' + index}>
-                    <TableCell numeric>{row.name}</TableCell>
-                    <TableCell numeric>{row.points}</TableCell>
-                    <TableCell numeric>{row.num}</TableCell>
+                    {Object.keys(row).map((value: any, i) => <TableCell key={'row' + index + '_' + i} numeric>{row[value]}</TableCell>)}
                   </TableRow>
                 );
               })}
@@ -66,18 +71,35 @@ export class TemporadaView extends React.Component<IProps, IState> {
     )
   }
 
-  private getClasificacion () {
+  private getClasificacion() {
     const requestInit: RequestInit = {
       method: 'GET',
       mode: 'cors',
       cache: 'default',
     }
     return new Fetch().fetch({
-      path: 'users/me',
+      path: 'temporada/clasificacion',
       init: requestInit,
     }, temporadaMock)
       .then(resp => resp.json())
+      .then((values: TeamRank[]) => {
+        return values.map(val => ({
+          'Pos': val.Posicion,
+          'Equipo': val.Nombre_equipo,
+          'Puntos': val.Puntos,
+          'Ganados': val.Partidos_ganados,
+          'Empatados': val.Partidos_empatados,
+          'Perdidos': val.Partidos_perdidos,
+          'GF': val.Goles_favor,
+          'GC': val.Goles_contra,
+        }))
+        .sort((a, b) => {
+          if (a.Pos < b.Pos) return -1;
+          else if (a.Pos > b.Pos) return 1;
+          else return 0;
+        })
+      })
     }
-  }
+}
 
-export const Temporada = TemporadaView
+  export const Temporada = TemporadaView
