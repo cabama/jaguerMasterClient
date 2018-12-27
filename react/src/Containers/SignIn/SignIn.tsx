@@ -6,13 +6,15 @@ import {
   CardHeader,
   Grid,
   TextField,
+  withTheme,
+  WithTheme,
 } from '@material-ui/core'
 import * as React from 'react'
 import { object, ObjectSchema, ref, string, ValidationError } from 'yup'
 import { LoginService } from '../../Services/LoginService'
 import { CardStyle, ContainerStyle } from './SignInStyle'
 
-interface IProps {
+interface IProps extends WithTheme {
   history: { push: (url: string) => void }
 }
 
@@ -41,12 +43,12 @@ interface IState extends IFormFields {
 const getYupErrors = (error: ValidationError) => {
   const errorObject = {}
   error.inner.forEach((errors) => {
-     errorObject[errors.path] = errors.errors
+    errorObject[errors.path] = errors.errors
   })
   return errorObject
 }
 
-export class SignIn extends React.Component<IProps, any> {
+export class SignInView extends React.Component<IProps, any> {
 
   public formSchema: ObjectSchema<{ [k in keyof IFormFields]: any }> = object({
     email: string().required('Email is Requerided').email('Is not email valid.'),
@@ -58,7 +60,7 @@ export class SignIn extends React.Component<IProps, any> {
       .required('Confirm Password is required'),
   })
 
-  public constructor (props: IProps, state: IState) {
+  public constructor(props: IProps, state: IState) {
     super(props, state)
     this.state = {
       email: '',
@@ -79,7 +81,7 @@ export class SignIn extends React.Component<IProps, any> {
       .catch((error) => console.error('Error al registrar usuario: ' + error))
   }
 
-  public async handleChanges (changes: { name: keyof IStateValidate, value: any}) {
+  public async handleChanges(changes: { name: keyof IStateValidate, value: any }) {
     const userToValidate = {
       email: this.state.email,
       name: this.state.name,
@@ -88,91 +90,105 @@ export class SignIn extends React.Component<IProps, any> {
       passwordConfirm: this.state.passwordConfirm,
     }
     userToValidate[changes.name] = changes.value
-    this.formSchema.validate(userToValidate, {abortEarly: false})
-      .then((value) => this.setState({validationErrors: {}}))
-      .catch((value) => this.setState({ validationErrors: getYupErrors(value)}))
-    this.setState({[changes.name]: changes.value})
+    this.formSchema.validate(userToValidate, { abortEarly: false })
+      .then((value) => this.setState({ validationErrors: {} }))
+      .catch((value) => this.setState({ validationErrors: getYupErrors(value) }))
+    this.setState({ [changes.name]: changes.value })
   }
 
-  public render () {
+  public render() {
+    const backgroundStyle = {
+      background: this.props.theme.palette.primary.dark,
+      minHeight: window.innerHeight
+    }
     return (
-      <div className={ContainerStyle}>
-        <Card className={CardStyle}>
-          <CardHeader title="Sign In"/>
-          <CardContent>
-            <Grid
-              container={true}
-              direction="column"
-              justify="center"
-              alignItems="center"
-              spacing={24}
-            >
-              <Grid item={true} xs={6} style={{ width: '100%' }}>
-                <TextField
-                  error={this.state.validationErrors.name}
-                  label="Name"
-                  value={this.state.name}
-                  onChange={(event) => this.handleChanges({ name: 'name', value: event.target.value })}
-                  margin="normal"
-                  style={{ width: '100%' }}
-                  helperText={this.state.validationErrors.name}
-                />
-              </Grid>
-              <Grid item={true} xs={6} style={{width: '100%'}}>
-                <TextField
-                  error={this.state.validationErrors.surname}
-                  label="Surname"
-                  value={this.state.surname}
-                  onChange={(event) => this.handleChanges({ name: 'surname', value: event.target.value })}
-                  margin="normal"
-                  style={{ width: '100%' }}
-                  helperText={this.state.validationErrors.surname}
+      <div className={ContainerStyle} style={backgroundStyle}>
+        <h2 style={{ color: 'white' }}>Jager Master C.F.</h2>
+        <Grid container={true} justify="center" alignItems="center">
+          <Grid item={true} xs={11} sm={12} md={12}>
+            <Card className={CardStyle}>
+              <CardHeader title="Sign In">
+                <p>Estas apunto de unirte a la comunidad jager.</p>
+              </CardHeader>
+              <CardContent>
+                <Grid
+                  container={true}
+                  direction="column"
+                  justify="center"
+                  alignItems="center"
+                  spacing={24}
+                >
+                  <Grid item={true} xs={10} style={{ width: '100%' }}>
+                    <TextField
+                      error={this.state.validationErrors.name}
+                      label="Name"
+                      value={this.state.name}
+                      onChange={(event) => this.handleChanges({ name: 'name', value: event.target.value })}
+                      margin="normal"
+                      style={{ width: '100%' }}
+                      helperText={this.state.validationErrors.name}
+                    />
+                  </Grid>
+                  <Grid item={true} xs={10} style={{ width: '100%' }}>
+                    <TextField
+                      error={this.state.validationErrors.surname}
+                      label="Surname"
+                      value={this.state.surname}
+                      onChange={(event) => this.handleChanges({ name: 'surname', value: event.target.value })}
+                      margin="normal"
+                      style={{ width: '100%' }}
+                      helperText={this.state.validationErrors.surname}
 
-                />
-              </Grid>
-              <Grid item={true} xs={6} style={{width: '100%'}}>
-                <TextField
-                  error={this.state.validationErrors.email}
-                  label="Email"
-                  value={this.state.email}
-                  onChange={(event) => this.handleChanges({ name: 'email', value: event.target.value })}
-                  margin="normal"
-                  style={{ width: '100%' }}
-                  helperText={this.state.validationErrors.email}
-                />
-              </Grid>
-              <Grid item={true} xs={6} style={{ width: '100%' }}>
-                <TextField
-                  error={this.state.validationErrors.password}
-                  label="Password"
-                  type="password"
-                  value={this.state.password}
-                  onChange={(event) => this.handleChanges({ name: 'password', value: event.target.value })}
-                  margin="normal"
-                  style={{ width: '100%' }}
-                  helperText={this.state.validationErrors.password}
-                />
-              </Grid>
-              <Grid item={true} xs={6} style={{ width: '100%' }}>
-                <TextField
-                  error={this.state.validationErrors.passwordConfirm}
-                  label="Repeat Password"
-                  type="password"
-                  value={this.state.passwordConfirm}
-                  onChange={(event) => this.handleChanges({ name: 'passwordConfirm', value: event.target.value })}
-                  margin="normal"
-                  style={{ width: '100%' }}
-                  helperText={this.state.validationErrors.passwordConfirm}
-                />
-              </Grid>
-            </Grid>
-          </CardContent>
+                    />
+                  </Grid>
+                  <Grid item={true} xs={10} style={{ width: '100%' }}>
+                    <TextField
+                      error={this.state.validationErrors.email}
+                      label="Email"
+                      value={this.state.email}
+                      onChange={(event) => this.handleChanges({ name: 'email', value: event.target.value })}
+                      margin="normal"
+                      style={{ width: '100%' }}
+                      helperText={this.state.validationErrors.email}
+                    />
+                  </Grid>
+                  <Grid item={true} xs={10} style={{ width: '100%' }}>
+                    <TextField
+                      error={this.state.validationErrors.password}
+                      label="Password"
+                      type="password"
+                      value={this.state.password}
+                      onChange={(event) => this.handleChanges({ name: 'password', value: event.target.value })}
+                      margin="normal"
+                      style={{ width: '100%' }}
+                      helperText={this.state.validationErrors.password}
+                    />
+                  </Grid>
+                  <Grid item={true} xs={10} style={{ width: '100%' }}>
+                    <TextField
+                      error={this.state.validationErrors.passwordConfirm}
+                      label="Repeat Password"
+                      type="password"
+                      value={this.state.passwordConfirm}
+                      onChange={(event) => this.handleChanges({ name: 'passwordConfirm', value: event.target.value })}
+                      margin="normal"
+                      style={{ width: '100%' }}
+                      helperText={this.state.validationErrors.passwordConfirm}
+                    />
+                  </Grid>
+                </Grid>
+              </CardContent>
 
-          <CardActions style={{ justifyContent: 'space-around' }}>
-            <Button color="primary" onClick={() => this.signIn()}>Sign In</Button>
-          </CardActions>
-        </Card>
+              <CardActions style={{ justifyContent: 'space-around' }}>
+                <Button color="primary" onClick={() => this.signIn()}>Sign In</Button>
+              </CardActions>
+            </Card>
+          </Grid>
+        </Grid>
+
       </div>
     )
   }
 }
+
+export const SignIn = withTheme()(SignInView as any)
