@@ -69,10 +69,13 @@ class LoginBridge {
   }
 
   public static singUp (email: string, name: string, password: string): Promise<any> {
+    const body = new FormData();
+    body.append('email', email);
+    body.append('password', password);
     const requestInit: RequestInit = {
       method: 'POST',
       headers: { 'Content-type': 'application/x-www-form-urlencoded' },
-      body: `email=${email}&password=${password}`,
+      body,
       cache: 'default',
     }
     return new Fetch().fetch({
