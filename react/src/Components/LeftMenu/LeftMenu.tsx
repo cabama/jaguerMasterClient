@@ -15,16 +15,14 @@ import {
   ScatterPlot,
   CompareArrows,
   AccountCircle,
-  Toc
 } from '@material-ui/icons'
 
 const menuElements = [
   { title: 'Main', icon: Inbox, path: '/' },
   { title: 'Profile', icon: AccountCircle, path: '/profile' },
-  { title: 'Calendario', icon: Today, path: '/temporada' },
   { title: 'Clasificacion', icon: ScatterPlot, path: '/temporada' },
-  { title: 'Resultados', icon: Toc, path: '/resultados' },
-  { title: 'Proximos Partidos', icon: CompareArrows, path: '/temporada' },
+  { title: 'Resultados', icon: CompareArrows, path: '/resultados' },
+  { title: 'Calendario', icon: Today, path: '/calendario' },
 ]
 
 type DrawableProps = IStateToProps & IDispatchToProps & RouteComponentProps
