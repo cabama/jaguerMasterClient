@@ -9,13 +9,14 @@ import { Match } from '../../Components/MatchCard/Match';
 
 type IProps = {
   history: { push: (url: string) => void },
+  endpoint: string
 }
 
 type IState = {
   resultados: Match[]
 }
 
-export class ResultadosView extends React.Component<IProps, IState> {
+export class MatchView extends React.Component<IProps, IState> {
 
   public inputRef: any = React.createRef()
   public urls = getUrlsEnviroment()
@@ -60,11 +61,12 @@ export class ResultadosView extends React.Component<IProps, IState> {
       cache: 'default',
     }
     return new Fetch().fetch({
-      path: 'temporada/resultados',
+      path: this.props.endpoint,
       init: requestInit,
     }, resultadosMock)
       .then(resp => resp.json())
   }
 }
 
-export const Resultados = ResultadosView
+export const Resultados = (props: IProps) => <MatchView {...props} endpoint='temporada/resultados'/>
+export const Calendario = (props: IProps) => <MatchView {...props} endpoint='temporada/calendario'/>
