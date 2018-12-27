@@ -60,7 +60,7 @@ export class ResultadosView extends React.Component<IProps, IState> {
       cache: 'default',
     }
     return new Fetch().fetch({
-      path: 'users/me',
+      path: 'temporada/resultados',
       init: requestInit,
     }, resultadosMock)
       .then(resp => resp.json())

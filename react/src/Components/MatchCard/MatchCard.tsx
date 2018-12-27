@@ -10,12 +10,12 @@ export class MatchCard extends React.Component<IProps> {
 
   public render (){
     const match = this.props.match
-    const fecha = new Date(match.fecha).getUTCDate()
+    const fecha = new Date(match.fecha)
     return (
       <Card style={{ width: '100%' }}>
         <CardContent>
           <p>Lugar: {match.campo.campo}</p>
-          <p>Fecha: {fecha}</p>
+          <p>Fecha: {fecha.toLocaleDateString()} {fecha.toLocaleTimeString()}</p>
           <p>Local: {match.local}</p>
           <p>Visitante: {match.visitante}</p>
           <p>Resultado Local: {match.resultadoLocal}</p>
