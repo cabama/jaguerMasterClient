@@ -9,13 +9,20 @@ import { ISetUpStore } from '../../Redux/Store/setupStore'
 import { LeftMenuDesktop } from './LeftMenuDesktop'
 import { LeftMenuResposive } from './LeftMenuResposive'
 
-import {AttachMoney, Inbox, NoteAdd, Today} from '@material-ui/icons'
+import {
+  Inbox,
+  Today,
+  ScatterPlot,
+  CompareArrows,
+  AccountCircle
+} from '@material-ui/icons'
 
 const menuElements = [
   { title: 'Main', icon: Inbox, path: '/' },
-  { title: 'Notes', icon: NoteAdd, path: '/profile' },
-  { title: 'Calendar', icon: Today, path: '/' },
-  { title: 'Billing', icon: AttachMoney, path: '/' },
+  { title: 'Profile', icon: AccountCircle, path: '/profile' },
+  { title: 'Calendario', icon: Today, path: '/temporada' },
+  { title: 'Clasificacion', icon: ScatterPlot, path: '/temporada' },
+  { title: 'Proximos Partidos', icon: CompareArrows, path: '/temporada' },
 ]
 
 type DrawableProps = IStateToProps & IDispatchToProps & RouteComponentProps
