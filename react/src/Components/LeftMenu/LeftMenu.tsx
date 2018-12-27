@@ -14,7 +14,8 @@ import {
   Today,
   ScatterPlot,
   CompareArrows,
-  AccountCircle
+  AccountCircle,
+  Toc
 } from '@material-ui/icons'
 
 const menuElements = [
@@ -22,6 +23,7 @@ const menuElements = [
   { title: 'Profile', icon: AccountCircle, path: '/profile' },
   { title: 'Calendario', icon: Today, path: '/temporada' },
   { title: 'Clasificacion', icon: ScatterPlot, path: '/temporada' },
+  { title: 'Resultados', icon: Toc, path: '/resultados' },
   { title: 'Proximos Partidos', icon: CompareArrows, path: '/temporada' },
 ]
 

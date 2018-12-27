@@ -25,7 +25,7 @@ const styles = {
 export function MenuBarView (props: any) {
   return (
     <div >
-      <AppBar position="static" style={{height: '65px'}}>
+      <AppBar position="fixed" style={{height: '65px'}}>
         <Toolbar>
           <IconButton
             color="inherit"

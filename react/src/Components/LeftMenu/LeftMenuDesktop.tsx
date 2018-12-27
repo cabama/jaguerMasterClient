@@ -8,14 +8,16 @@ const styles: StyleRulesCallback = (theme) => ({
     flexGrow: 1,
     zIndex: 1,
     overflow: 'hidden',
-    position: 'relative',
+    position: 'fixed',
+    top: '65px',
     display: 'flex',
+    width: '240px',
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
   },
   drawerPaper: {
-    position: 'relative',
+    top: '65px',
     width: 240,
     height: 'calc(100vh - 65px)',
   },
@@ -33,6 +35,7 @@ export function DrawerMenu (props: any) {
 
   return (
     <Drawer
+      style={{width: '240px'}}
       variant="permanent"
       classes={{ paper: classes.drawerPaper }}
     >

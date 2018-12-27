@@ -13,6 +13,7 @@ const AppStyle: React.CSSProperties = {
 }
 
 const MainStyle: React.CSSProperties = {
+  marginTop: '65px',
   flexGrow: 1,
   minWidth: 0,
   paddingTop: '10px',
