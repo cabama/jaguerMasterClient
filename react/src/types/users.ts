@@ -11,6 +11,7 @@ export enum AccountRole {
 export type UserType = {
   avatar: string
   name: string
+  surname: string
   userId: string
   email: string
   password: string

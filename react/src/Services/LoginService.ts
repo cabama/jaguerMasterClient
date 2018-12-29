@@ -47,8 +47,8 @@ export class LoginService {
     }
   }
 
-  public static async singUp (email: string, name: string, password: string): Promise<any> {
-    return LoginBridge.singUp(email, name, password)
+  public static async singUp (email: string, name: string, surname: string, password: string): Promise<any> {
+    return LoginBridge.singUp(email, name, surname, password)
   }
 }
 
@@ -68,9 +68,11 @@ class LoginBridge {
     })
   }
 
-  public static singUp (email: string, name: string, password: string): Promise<any> {
+  public static singUp (email: string, name: string, surname: string, password: string): Promise<any> {
     const body = new FormData();
     body.append('email', email);
+    body.append('name', name);
+    body.append('surname', surname);
     body.append('password', password);
     const requestInit: RequestInit = {
       method: 'POST',

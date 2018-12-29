@@ -73,10 +73,11 @@ export class SignInView extends React.Component<IProps, any> {
   }
 
   public signIn = () => {
+    const name = this.state.name
+    const surname = this.state.surname
     const email = this.state.email
     const password = this.state.password
-    const name = this.state.name
-    LoginService.singUp(email, name, password)
+    LoginService.singUp(email, name, surname, password)
       .then((value) => console.log(value))
       .catch((error) => console.error('Error al registrar usuario: ' + error))
   }

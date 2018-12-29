@@ -11,7 +11,6 @@ export const PreUsersTable = (props: IProps) => {
   return (<Table>
     <TableHead>
       <TableRow>
-        <TableCell></TableCell>
         <TableCell>Nombre</TableCell>
         <TableCell>Email</TableCell>
       </TableRow>
@@ -20,7 +19,7 @@ export const PreUsersTable = (props: IProps) => {
       {props.preusers.map((user, index) => {
         return (
           <TableRow key={'row' + index}>
-            <TableCell>{user.name}</TableCell>
+            <TableCell>{user.name + ' ' + user.surname}</TableCell>
             <TableCell>{user.email}</TableCell>
           </TableRow>
         );
