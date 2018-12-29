@@ -1,10 +1,15 @@
 import * as React from 'react'
+import { Grid, Paper } from '@material-ui/core'
 import { Fetch } from '../../Services/FetchService'
+import { UserType } from '../../types/users'
+import { PreUsersTable } from './PreUsersTable'
+import View from '../View/View'
+
 
 type IProps = any
 type IState = {
-  preUsers: object [],
-  users: object []
+  preUsers: UserType[],
+  users: object[]
 }
 
 export class AdminUsers extends React.Component<IProps, IState> {
@@ -28,16 +33,21 @@ export class AdminUsers extends React.Component<IProps, IState> {
       path: 'users/allPreUsers',
       init: requestInit,
     })
-    .then(resp => resp.json())
-    .then(preUsers => this.setState({preUsers}))
+      .then(resp => resp.json())
+      .then(preUsers => this.setState({ preUsers }))
   }
 
-  public render () {
+  public render() {
     return (
-      <div>
-        <div>Billing Page</div>
-        { this.state.preUsers.map((preuser,i) => (<p key={String(i)}>{JSON.stringify(preuser)}</p>)) }
-      </div>
+      <View MenuBar={true} SideMenu={true}>
+        <Grid container={true} spacing={16} justify="center" alignItems="center">
+          <Grid item={true} xs={11} xl={6}>
+            <Paper>
+              <PreUsersTable preusers={this.state.preUsers} />
+            </Paper>
+          </Grid>
+        </Grid>
+      </View>
     )
   }
 

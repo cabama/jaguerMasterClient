@@ -12,13 +12,13 @@ const AppStyle: React.CSSProperties = {
   flexDirection: 'row',
 }
 
-const MainStyle: React.CSSProperties = {
-  marginTop: '65px',
+const MainStyle = (isMenuBar: boolean): React.CSSProperties => ({
+  marginTop: (isMenuBar === true) ? '65px' : '0',
   flexGrow: 1,
   minWidth: 0,
-  paddingTop: '10px',
+  paddingTop: (isMenuBar === true) ? '10px' : '0',
   paddingBottom: '10px',
-}
+})
 
 interface IProps {
   MenuBar: boolean
@@ -38,7 +38,7 @@ class View extends React.Component <IProps> {
           {this.getMenuBar()}
         <div style={{ ...AppStyle, height: 'calc(100% - 56px)'}}>
           {this.getSideMenu()}
-          <Grid container={true} justify="center" style={MainStyle}>
+          <Grid container={true} justify="center" style={MainStyle(this.props.MenuBar)}>
             {this.props.children}
           </Grid>
         </div>
