@@ -1,9 +1,14 @@
+const webpack = require('webpack')
+const merge = require("webpack-merge");
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const webpack = require('webpack')
+const devConfig = require('./webpack.dev')
+const prodConfig = require('./webpack.prod')
 
-module.exports = (env) => {
-  
+
+
+const common = (env) => {
+
   const envKeys = Object.keys(env).reduce((prev, next) => {
     prev[`process.env.${next}`] = JSON.stringify(env[next]);
     return prev;
@@ -74,11 +79,20 @@ module.exports = (env) => {
         template: './src/index.html'
       }),
       // Copy React Modules to dist folder
-      new CopyWebpackPlugin([
-        { from: __dirname + '/node_modules/react/umd/react.development.js', to: __dirname + "/dist" },
-        { from: __dirname + '/node_modules/react-dom/umd/react-dom.development.js', to: __dirname + "/dist" },
-      ], { debug: true }),
       new webpack.DefinePlugin(envKeys)
     ]
   }
+}
+
+module.exports = env => {
+
+  const envKeys = Object.keys(env).reduce((prev, next) => {
+    prev[`process.env.${next}`] = JSON.stringify(env[next]);
+    return prev;
+  }, {});
+
+  console.log('COMMOM KEYS: ', envKeys)
+
+  if (envKeys['process.env.REACT_APP_MODE'] === 'DEV') return merge(common(mode), devConfig)
+  else return merge(common(env), prodConfig)
 }

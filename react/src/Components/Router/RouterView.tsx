@@ -8,6 +8,7 @@ import { MainPageContainer } from '../../Containers/Main/Main'
 import { Profile } from '../../Containers/Profile/Profile'
 import { SignIn } from '../../Containers/SignIn/SignIn'
 import { UserTypes } from '../../Redux/Actions/UserActions'
+import { AdminUsers } from '../../Containers/AdminUsers/AdminUsers'
 import { IUserStore } from '../../Redux/Store/userStore'
 import { Temporada } from '../../Containers/Temporada/Temporada'
 import { Resultados, Calendario } from '../../Containers/Resultados/Resultados'
@@ -45,6 +46,7 @@ export class MainViewComponent extends React.Component<MainViewComponentProps> {
 
   public render () {
     const isAuth = this.props.state.user.login
+    const isAdmin = isAuth && (this.props.state.user.role === 'admin')
     return (
       <Grid item={true} xs={12} sm={12} md={12}>
       <Router>
@@ -61,6 +63,12 @@ export class MainViewComponent extends React.Component<MainViewComponentProps> {
               privateComponent={Profile}
               redirectComponent={Login}
               isAuth={isAuth}
+            />
+            <PrivateRoute
+              path="/adminUsers"
+              privateComponent={AdminUsers}
+              redirectComponent={Login}
+              isAuth={isAdmin}
             />
             <Route path="/topics" component={Topics} />
             <Route path="/login" component={Login} />

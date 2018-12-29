@@ -18,9 +18,9 @@
     "yup": "^0.26.6"
   },
   "scripts": {
-    "start": "webpack-dev-server --env.REACT_APP_MODE=DEV",
-    "start:mock": "webpack-dev-server --mode=development --env.REACT_APP_MODE=DEV --env.REACT_APP_MOCK=TRUE",
-    "build": "webpack --mode=production --env.REACT_APP_MODE=PROD",
+    "start": "webpack-dev-server  --env.REACT_APP_MODE=DEV",
+    "start:mock": "webpack-dev-server --env.REACT_APP_MODE=DEV --env.REACT_APP_MOCK=TRUE",
+    "build": "webpack --env.REACT_APP_MODE=PROD",
     "fix": "tslint --fix -c ./tslint.json 'src/**/*{.ts,.tsx}' verbose"
   },
   "devDependencies": {
@@ -40,15 +40,16 @@
     "@types/yup": "^0.24.9",
     "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "^8.0.4",
-    "style-loader": "^0.23.1",
+    "copy-webpack-plugin": "^4.6.0",
     "css-loader": "^1.0.1",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^4.0.0-beta.4",
-    "copy-webpack-plugin": "^4.6.0",
     "source-map-loader": "^0.2.4",
+    "style-loader": "^0.23.1",
     "typescript": "^3.2.1",
     "webpack": "^4.27.1",
     "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.10"
+    "webpack-dev-server": "^3.1.10",
+    "webpack-merge": "^4.1.5"
   }
 }

@@ -18,6 +18,8 @@ RUN chmod +x /usr/local/lib/node_modules/yarn/bin/yarn.js
 
 # COPY PROJECT SETTINGS
 ADD webpack.config.js /usr/src/jaguer
+ADD webpack.dev.js /usr/src/jaguer
+ADD webpack.prod.js /usr/src/jaguer
 ADD package.json /usr/src/jaguer
 ADD tsconfig.json /usr/src/jaguer
 ADD tslint.json /usr/src/jaguer

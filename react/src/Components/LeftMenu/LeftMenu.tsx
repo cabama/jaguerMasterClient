@@ -5,9 +5,11 @@ import MediaQuery from 'react-responsive'
 import { RouteComponentProps, withRouter } from 'react-router'
 import { Dispatch } from 'redux'
 import { setupTypes } from '../../Redux/Actions/setupActions'
+import { IUserStore } from '../../Redux/Store/userStore'
 import { ISetUpStore } from '../../Redux/Store/setupStore'
 import { LeftMenuDesktop } from './LeftMenuDesktop'
 import { LeftMenuResposive } from './LeftMenuResposive'
+import Divider from '@material-ui/core/Divider'
 
 import {
   Inbox,
@@ -25,6 +27,10 @@ const menuElements = [
   { title: 'Calendario', icon: Today, path: '/calendario' },
 ]
 
+const adminMenuElements = [
+  { title: 'AdminUsers', icon: AccountCircle, path: '/adminUsers' },
+]
+
 type DrawableProps = IStateToProps & IDispatchToProps & RouteComponentProps
 
 class Drawablemenu extends React.Component<DrawableProps> {
@@ -34,9 +40,11 @@ class Drawablemenu extends React.Component<DrawableProps> {
   }
 
   public ListItems = (close: () => void) => {
-    return (
-    menuElements.map((element) => this.makeElementList({ ...element, close }))
-    )
+    const commonElements = menuElements.map((element) => this.makeElementList({ ...element, close }))
+    const adminElements = adminMenuElements.map((element) => this.makeElementList({ ...element, close }))
+  
+    if (this.props.state.user.role === 'admin') return [...commonElements, <Divider />, ...adminElements]
+    else return commonElements
   }
 
   public render () {
@@ -74,6 +82,7 @@ class Drawablemenu extends React.Component<DrawableProps> {
 
 interface IStateToProps {
   state: {
+    user: IUserStore,
     setup: ISetUpStore,
   }
 }
@@ -81,6 +90,7 @@ interface IStateToProps {
 const mapStateToProps = (state: any): IStateToProps => {
   return {
     state: {
+      user: state.user,
       setup: state.setup,
     },
   }
