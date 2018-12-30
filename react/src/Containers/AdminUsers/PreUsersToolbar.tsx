@@ -3,26 +3,31 @@ import {
   Toolbar,
   Tooltip,
   Typography,
-  IconButton
+  IconButton,
+  withTheme,
+  WithTheme
 } from '@material-ui/core'
 
 import DeleteIcon from '@material-ui/icons/Delete'
-import FilterListIcon from '@material-ui/icons/FilterList'
 import { UserType } from 'types/users'
+import { PersonAdd } from '@material-ui/icons'
+import { toolbarStyle } from './PreUserToolbarStyle'
 
 
 type IProps = {
   selected: UserType | null
-}
+} & WithTheme
 
-export const PreUserToolbar = (props: IProps) => {
+const PreUserToolbarView = (props: IProps) => {
   const { selected } = props;
+  const tbStyle = toolbarStyle(props.theme)
+  console.log('tbstyle', tbStyle)
 
   return (
     <Toolbar
-      className={'.Toolbar'}
+      className={`Toolbar ${tbStyle.root} ${tbStyle.highlight}`}
     >
-      <div className={'classes.title'}>
+      <div className={`classes.title ${tbStyle.title}`}>
 
         {!!selected ? (
           <Typography color="inherit" variant="subtitle1">
@@ -34,22 +39,25 @@ export const PreUserToolbar = (props: IProps) => {
           </Typography>
           )}
       </div>
-      <div className={'classes.spacer'} />
-      <div className={'classes.actions'}>
-        {!!selected ? (
+      <div className={`classes.spacer ${tbStyle.spacer}`} />
+      {!!selected ? (
+        <div className={`classes.actions ${tbStyle.actions}`}>
           <Tooltip title="Delete">
             <IconButton aria-label="Delete">
               <DeleteIcon />
             </IconButton>
           </Tooltip>
-        ) : (
-            <Tooltip title="Filter list">
-              <IconButton aria-label="Filter list">
-                <FilterListIcon />
-              </IconButton>
-            </Tooltip>
-          )}
-      </div>
+          <Tooltip title="Add user">
+            <IconButton aria-label="Add user">
+              <PersonAdd />
+            </IconButton>
+          </Tooltip>
+        </div>
+      ) : (
+          <div className={`classes.actions ${tbStyle.actions}`}></div>
+        )}
     </Toolbar>
   )
 }
+
+export const PreUserToolbar = withTheme()(PreUserToolbarView)
