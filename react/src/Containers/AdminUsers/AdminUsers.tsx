@@ -9,7 +9,7 @@ import View from '../View/View'
 type IProps = any
 type IState = {
   preUsers: UserType[],
-  users: object[]
+  users: UserType[]
 }
 
 export class AdminUsers extends React.Component<IProps, IState> {
@@ -21,6 +21,7 @@ export class AdminUsers extends React.Component<IProps, IState> {
       users: []
     }
     this.fetchPreUsers()
+    this.fetchUsers()
   }
 
   public fetchPreUsers = () => {
@@ -37,6 +38,20 @@ export class AdminUsers extends React.Component<IProps, IState> {
       .then(preUsers => this.setState({ preUsers }))
   }
 
+  public fetchUsers = () => {
+    const requestInit: RequestInit = {
+      method: 'GET',
+      mode: 'cors',
+      cache: 'default',
+    }
+    return new Fetch().fetch({
+      path: 'users/all',
+      init: requestInit,
+    })
+      .then(resp => resp.json())
+      .then(users => this.setState({ users }))
+  }
+
   public render() {
     return (
       <View MenuBar={true} SideMenu={true}>
@@ -44,6 +59,9 @@ export class AdminUsers extends React.Component<IProps, IState> {
           <Grid item={true} xs={11} xl={6}>
             <Paper>
               <PreUsersTable preusers={this.state.preUsers} />
+            </Paper>
+            <Paper style={{marginTop: '20px'}}>
+              <PreUsersTable preusers={this.state.users} />
             </Paper>
           </Grid>
         </Grid>
