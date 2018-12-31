@@ -69,7 +69,7 @@ export class ProfileView extends React.Component<IProps, any> {
     surname: string().required('Surname is requerided.'),
   })
 
-  public constructor (props: IProps, state: IState) {
+  public constructor(props: IProps, state: IState) {
     super(props, state)
     this.state = {
       email: this.props.state.user.email || '',
@@ -79,7 +79,7 @@ export class ProfileView extends React.Component<IProps, any> {
     }
   }
 
-  public async handleChanges (changes: { name: keyof IStateValidate, value: any }) {
+  public async handleChanges(changes: { name: keyof IStateValidate, value: any }) {
     const userToValidate = {
       email: this.state.email,
       name: this.state.name,
@@ -92,52 +92,53 @@ export class ProfileView extends React.Component<IProps, any> {
     this.setState({ [changes.name]: changes.value })
   }
 
-  public render () {
+  public render() {
     const avatarURL = this.urls.baseUrl + '/public/avatar/' + (this.props.state.user.avatar || 'unkown.png')
+    console.log('PROPS: ', this.props)
     return (
       <View MenuBar={true} SideMenu={true}>
         <Grid container={true} xs={11} justify="center" alignItems="center">
-        <Card className={CardStyle}>
-          <CardHeader title="Profile" />
-          <CardContent>
-            <Grid
-              container={true}
-              direction="column"
-              justify="center"
-              alignItems="center"
-              spacing={24}
-            >
-              <Avatar src={avatarURL} style={{height: 150, width: 150}} onClick={() => this.inputRef.current.click()} />
-              <input
-                type="file"
-                ref={this.inputRef}
-                style={{ display: 'none' }}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) => this.handleChangeAvatar(event)}
-              />
-              {this.renderForm()}
-            </Grid>
-          </CardContent>
+          <Card className={CardStyle}>
+            <CardHeader title="Profile" />
+            <CardContent>
+              <Grid
+                container={true}
+                direction="column"
+                justify="center"
+                alignItems="center"
+                spacing={24}
+              >
+                <Avatar src={avatarURL} style={{ height: 150, width: 150 }} onClick={() => this.inputRef.current.click()} />
+                <input
+                  type="file"
+                  ref={this.inputRef}
+                  style={{ display: 'none' }}
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => this.handleChangeAvatar(event)}
+                />
+                {this.renderForm()}
+              </Grid>
+            </CardContent>
 
-          <CardActions style={{ justifyContent: 'space-around' }}>
+            <CardActions style={{ justifyContent: 'space-around' }}>
               <Button color="primary" onClick={() => this.fetchPutProfile.bind(this)()}>Update Profile</Button>
-          </CardActions>
-        </Card>
-      </Grid>
+            </CardActions>
+          </Card>
+        </Grid>
       </View>
     )
   }
 
-  private renderForm () {
+  private renderForm() {
     return (
       <Grid item={true} xs={12} container={true} direction="row" justify="center" alignItems="center">
-        {this.setTextField({name: 'name', type: 'text'})}
-        {this.setTextField({name: 'surname', type: 'text'})}
-        {this.setTextField({name: 'email', type: 'text'})}
+        {this.setTextField({ name: 'name', type: 'text' })}
+        {this.setTextField({ name: 'surname', type: 'text' })}
+        {this.setTextField({ name: 'email', type: 'text' })}
       </Grid>
     )
   }
 
-  private setTextField (setup: ISetTextField) {
+  private setTextField(setup: ISetTextField) {
     return (
       <Grid item={true} xs={12} md={8} container={true} direction="row" justify="center" alignItems="center">
         <TextField
@@ -154,7 +155,7 @@ export class ProfileView extends React.Component<IProps, any> {
     )
   }
 
-  private handleChangeAvatar (e: React.ChangeEvent<HTMLInputElement>) {
+  private handleChangeAvatar(e: React.ChangeEvent<HTMLInputElement>) {
     const img = e.target.files![0]
     const formData: FormData = new FormData()
     formData.append('avatar', img)
@@ -167,13 +168,13 @@ export class ProfileView extends React.Component<IProps, any> {
       .catch(error => console.error(error))
   }
 
-  private fetchPutProfile () {
+  private fetchPutProfile() {
     const formData: FormData = new FormData()
     formData.append('name', this.state.name)
     formData.append('surname', this.state.surname)
     new Fetch().fetch({
       path: 'users/me',
-      init: {method: 'PUT', body: formData},
+      init: { method: 'PUT', body: formData },
     })
       .then(response => response.json())
       .then(value => this.props.dispatchers.updateProfile(value))

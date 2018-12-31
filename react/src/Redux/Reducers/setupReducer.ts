@@ -1,18 +1,18 @@
-import { ISetUpActions, setupTypes } from '../Actions/setupActions'
+import { ISetUpActions, SetupTypes } from '../Actions/setupActions'
 import { defaultSetUpStore, ISetUpStore } from '../Store/setupStore'
 
 export const SetupReducer = (state: ISetUpStore = defaultSetUpStore, action: ISetUpActions): ISetUpStore => {
 
   switch (action.type) {
-    case setupTypes.changeDevice:
+    case SetupTypes.changeDevice:
       return { ...state, ...{isMobile: !state.isMobile}}
-    case setupTypes.setDevice:
-      return { ...state, ...{ isMobile: !state.isMobile }}
-    case setupTypes.openDrawable:
+    case SetupTypes.setDevice:
+      return { ...state, ...{ device: action.action.device || 'mobile' }}
+    case SetupTypes.openDrawable:
       return { ...state, isDrawableVisible: true}
-    case setupTypes.changeDrawableView:
+    case SetupTypes.changeDrawableView:
       return { ...state, isDrawableVisible: !state.isDrawableVisible}
-    case setupTypes.closeDrawable:
+    case SetupTypes.closeDrawable:
       return { ...state, isDrawableVisible: false}
     default:
       return state

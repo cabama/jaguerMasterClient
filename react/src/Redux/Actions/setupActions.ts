@@ -1,5 +1,5 @@
 
-export enum setupTypes {
+export enum SetupTypes {
   openDrawable = 'OPEN_DRAWABLE',
   closeDrawable = 'CLOSE_DRAWABLE',
   changeDrawableView = 'CHANGE_DRAWABLE_VIEW',
@@ -8,27 +8,21 @@ export enum setupTypes {
 }
 
 export interface ISetUpActions {
-  type: setupTypes
+  type: SetupTypes
   action: {
+    device?: 'mobile' | 'tablet' | 'desktop',
     isMobile?: boolean,
     isDrawableVisible?: boolean,
   }
 }
 
-export const setMobileView = (mobileView: boolean) => {
+export const setDevice = (mobileView: 'mobile' | 'tablet' | 'desktop') => {
   return {
-    type: setupTypes.setDevice,
+    type: SetupTypes.setDevice,
     isMobile: mobileView,
   }
 }
 
-export const changeMobileView = () => {
-  return {
-    type: setupTypes.changeDevice,
-  }
-}
-
 export const UserActions = {
-  setMobileView,
-  changeMobileView,
+  setDevice
 }

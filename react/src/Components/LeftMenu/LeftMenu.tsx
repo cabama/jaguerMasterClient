@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import MediaQuery from 'react-responsive'
 import { RouteComponentProps, withRouter } from 'react-router'
 import { Dispatch } from 'redux'
-import { setupTypes } from '../../Redux/Actions/setupActions'
+import { SetupTypes } from '../../Redux/Actions/setupActions'
 import { IUserStore } from '../../Redux/Store/userStore'
 import { ISetUpStore } from '../../Redux/Store/setupStore'
 import { LeftMenuDesktop } from './LeftMenuDesktop'
@@ -106,7 +106,7 @@ const mapDispatchToProps = (dispatch: Dispatch): IDispatchToProps => {
   return {
     dispatcher: {
       closeMenu: () => dispatch(
-        { type: setupTypes.closeDrawable },
+        { type: SetupTypes.closeDrawable },
       ),
     },
   }

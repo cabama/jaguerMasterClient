@@ -6,7 +6,7 @@ import MenuIcon from '@material-ui/icons/Menu'
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
-import { setupTypes } from '../../Redux/Actions/setupActions'
+import { SetupTypes } from '../../Redux/Actions/setupActions'
 import AvatarComponent from './AvatarComponent/AvatarComponent'
 
 const styles = {
@@ -52,7 +52,7 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    changeDrawableView: (mobileDevice: boolean) => dispatch({ type: setupTypes.changeDrawableView}),
+    changeDrawableView: (mobileDevice: boolean) => dispatch({ type: SetupTypes.changeDrawableView}),
   }
 }
 

@@ -2,6 +2,9 @@ import { Grid } from '@material-ui/core'
 import * as React from 'react'
 import { LeftMenu } from '../../Components/LeftMenu/LeftMenu'
 import { MenuBar } from '../../Components/Menu/MenuBar'
+import { DeviceType } from '../../Redux/Store/setupStore'
+import { SetupTypes } from '../../Redux/Actions/setupActions'
+import { connect } from 'react-redux'
 
 const AppStyle: React.CSSProperties = {
   flexGrow: 1,
@@ -20,43 +23,81 @@ const MainStyle = (isMenuBar: boolean): React.CSSProperties => ({
   paddingBottom: '10px',
 })
 
-interface IProps {
+interface IProps extends IDispatchProps {
   MenuBar: boolean
   SideMenu: boolean
   className?: string
 }
 
-class View extends React.Component <IProps> {
+class View extends React.Component<IProps> {
 
-  constructor (props: IProps) {
+  constructor(props: IProps) {
     super(props)
   }
 
-  public render () {
-    return (
-      <div className={`View ${this.props.className}`}>
-          {this.getMenuBar()}
-        <div style={{ ...AppStyle, height: 'calc(100% - 56px)'}}>
-          {this.getSideMenu()}
-          <Grid container={true} justify="center" style={MainStyle(this.props.MenuBar)}>
-            {this.props.children}
-          </Grid>
-        </div>
+  public render() {
+    return (<div className={`View ${this.props.className}`}>
+      {this.getMenuBar()}
+      <div style={{ ...AppStyle, height: 'calc(100% - 56px)' }}>
+        {this.getSideMenu()}
+        <Grid container={true} justify="center" style={MainStyle(this.props.MenuBar)}>
+          {this.props.children}
+        </Grid>
       </div>
-    )
+    </div>)
   }
 
-  private getSideMenu () {
+  private getSideMenu() {
     return this.props.SideMenu
       ? <LeftMenu />
       : null
   }
 
-  private getMenuBar () {
+  private getMenuBar() {
     return this.props.MenuBar
-      ? <MenuBar/>
+      ? <MenuBar />
       : null
   }
 }
 
-export default View
+
+interface IStateToProps {
+  state: { user: any },
+}
+
+const mapStateToProps: (state: any) => IStateToProps = (state: any) => {
+  return {
+    state: {
+      user: state.user,
+    },
+  }
+}
+
+interface IDispatchProps {
+  dispatch: {
+    setDevice: ((device: DeviceType) => any),
+  },
+}
+
+const mapDispatchToProps: (dispatch: any) => IDispatchProps = (dispatch: any) => {
+  return {
+    dispatch: {
+      setDevice: (device: DeviceType) =>
+        dispatch({
+          type: SetupTypes.setDevice,
+          action: {
+            device
+          },
+        }),
+    },
+  }
+}
+
+
+const ViewRedux = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(View)
+
+
+export default ViewRedux
