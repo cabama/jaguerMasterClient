@@ -8,6 +8,7 @@ import {
   TextField,
   withTheme,
   WithTheme,
+  LinearProgress,
 } from '@material-ui/core'
 import * as React from 'react'
 import { object, ObjectSchema, ref, string, ValidationError } from 'yup'
@@ -36,8 +37,13 @@ type IStateValidate = {
 }
 
 interface IState extends IFormFields {
-  isValidate: boolean
+  email: string
+  name: string
+  surname: string
+  password: string
+  passwordConfirm: string
   validationErrors: IStateValidate
+  isPosting: boolean
 }
 
 const getYupErrors = (error: ValidationError) => {
@@ -48,7 +54,7 @@ const getYupErrors = (error: ValidationError) => {
   return errorObject
 }
 
-export class SignInView extends React.Component<IProps, any> {
+export class SignInView extends React.Component<IProps, IState> {
 
   public formSchema: ObjectSchema<{ [k in keyof IFormFields]: any }> = object({
     email: string().required('Email is Requerided').email('Is not email valid.'),
@@ -69,6 +75,7 @@ export class SignInView extends React.Component<IProps, any> {
       password: '',
       passwordConfirm: '',
       validationErrors: {},
+      isPosting: false
     }
   }
 
@@ -77,9 +84,17 @@ export class SignInView extends React.Component<IProps, any> {
     const surname = this.state.surname
     const email = this.state.email
     const password = this.state.password
+    this.setState({ isPosting: true })
     LoginService.singUp(email, name, surname, password)
-      .then((value) => console.log(value))
-      .catch((error) => console.error('Error al registrar usuario: ' + error))
+      .then((value) => {
+        this.setState({isPosting: false})
+        this.props.history.push('/login')
+        console.log(value)
+      })
+      .catch((error) => {
+        this.setState({ isPosting: false })
+        console.error('Error al registrar usuario: ' + error)
+      })
   }
 
   public async handleChanges(changes: { name: keyof IStateValidate, value: any }) {
@@ -94,7 +109,13 @@ export class SignInView extends React.Component<IProps, any> {
     this.formSchema.validate(userToValidate, { abortEarly: false })
       .then((value) => this.setState({ validationErrors: {} }))
       .catch((value) => this.setState({ validationErrors: getYupErrors(value) }))
-    this.setState({ [changes.name]: changes.value })
+    const nextState = { [changes.name]: changes.value } as IState
+    this.setState(nextState)
+  }
+
+  public getLoadingBar = (props: { isLoading: boolean }) => {
+    if (props.isLoading) return <LinearProgress color="secondary" />
+    else return <div />
   }
 
   public render() {
@@ -108,9 +129,8 @@ export class SignInView extends React.Component<IProps, any> {
         <Grid container={true} justify="center" alignItems="center">
           <Grid item={true} xs={11} sm={12} md={12}>
             <Card className={CardStyle}>
-              <CardHeader title="Sign In">
-                <p>Estas apunto de unirte a la comunidad jager.</p>
-              </CardHeader>
+              <CardHeader title="Sign In"></CardHeader>
+              {<this.getLoadingBar isLoading={this.state.isPosting} />}
               <CardContent>
                 <Grid
                   container={true}
@@ -121,7 +141,7 @@ export class SignInView extends React.Component<IProps, any> {
                 >
                   <Grid item={true} xs={10} style={{ width: '100%' }}>
                     <TextField
-                      error={this.state.validationErrors.name}
+                      error={!!this.state.validationErrors.name}
                       label="Name"
                       value={this.state.name}
                       onChange={(event) => this.handleChanges({ name: 'name', value: event.target.value })}
@@ -132,7 +152,7 @@ export class SignInView extends React.Component<IProps, any> {
                   </Grid>
                   <Grid item={true} xs={10} style={{ width: '100%' }}>
                     <TextField
-                      error={this.state.validationErrors.surname}
+                      error={!!this.state.validationErrors.surname}
                       label="Surname"
                       value={this.state.surname}
                       onChange={(event) => this.handleChanges({ name: 'surname', value: event.target.value })}
@@ -144,7 +164,7 @@ export class SignInView extends React.Component<IProps, any> {
                   </Grid>
                   <Grid item={true} xs={10} style={{ width: '100%' }}>
                     <TextField
-                      error={this.state.validationErrors.email}
+                      error={!!this.state.validationErrors.email}
                       label="Email"
                       value={this.state.email}
                       onChange={(event) => this.handleChanges({ name: 'email', value: event.target.value })}
@@ -155,7 +175,7 @@ export class SignInView extends React.Component<IProps, any> {
                   </Grid>
                   <Grid item={true} xs={10} style={{ width: '100%' }}>
                     <TextField
-                      error={this.state.validationErrors.password}
+                      error={!!this.state.validationErrors.password}
                       label="Password"
                       type="password"
                       value={this.state.password}
@@ -167,7 +187,7 @@ export class SignInView extends React.Component<IProps, any> {
                   </Grid>
                   <Grid item={true} xs={10} style={{ width: '100%' }}>
                     <TextField
-                      error={this.state.validationErrors.passwordConfirm}
+                      error={!!this.state.validationErrors.passwordConfirm}
                       label="Repeat Password"
                       type="password"
                       value={this.state.passwordConfirm}
