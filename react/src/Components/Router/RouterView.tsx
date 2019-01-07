@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { RouteComponentProps, RouteProps } from 'react-router'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { Login } from '../../Containers/Login/Login'
-import { MainPageContainer } from '../../Containers/Main/Main'
 import { Profile } from '../../Containers/Profile/Profile'
 import { SignIn } from '../../Containers/SignIn/SignIn'
 import { UserTypes } from '../../Redux/Actions/UserActions'
@@ -51,13 +50,7 @@ export class MainViewComponent extends React.Component<MainViewComponentProps> {
       <Grid item={true} xs={12} sm={12} md={12}>
       <Router>
         <Switch>
-            <PrivateRoute
-              exact={true}
-              path="/"
-              privateComponent={MainPageContainer}
-              redirectComponent={Login}
-              isAuth={isAuth}
-            />
+            <Route exact={true} path="/" component={Temporada} />
             <PrivateRoute
               path="/profile"
               privateComponent={Profile}

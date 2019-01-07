@@ -10,9 +10,12 @@ import {
 } from '@material-ui/core'
 import { UserType } from 'types/users';
 import { PreUserToolbar } from './PreUsersToolbar'
+import { UserToolbar } from './UsersToolbar';
 
 export type IProps = {
-  preusers: UserType[]
+  users: UserType[]
+  actions: {[x: string]: Function}
+  toolbar: any
 }
 
 export type IState = {
@@ -21,19 +24,19 @@ export type IState = {
 }
 
 
-export class PreUsersTable extends React.Component<IProps, IState> {
+class UserTable extends React.Component<IProps, IState> {
 
   constructor (props: IProps, state: IState) {
     super(props, state)
     this.state = {
       selected: -1,
-      preusers: this.props.preusers.map(user => ({ ...user, selected: false }))
+      preusers: this.props.users.map(user => ({ ...user, selected: false }))
     }
   }
 
   componentWillReceiveProps(newProps: IProps) {
     this.setState({
-      preusers: newProps.preusers.map(user => ({ ...user, selected: false }))
+      preusers: newProps.users.map(user => ({ ...user, selected: false }))
     })
   }
 
@@ -48,8 +51,9 @@ export class PreUsersTable extends React.Component<IProps, IState> {
   }
 
   render() {
+    const selected = this.state.selected > -1 ? this.state.preusers[this.state.selected] : null
     return (<div>
-      <PreUserToolbar selected={this.state.selected > -1 ? this.state.preusers[this.state.selected] : null} />
+      <this.props.toolbar selected={selected} actions={this.props.actions}/>
       <Table>
         <TableHead>
           <TableRow>
@@ -75,3 +79,22 @@ export class PreUsersTable extends React.Component<IProps, IState> {
     </div>)
   }
 }
+
+type PreUserTableProps = {
+  users: UserType[],
+  actions: {
+    addPreUserAction: Function,
+    delPreUserAction: Function
+  }
+}
+
+type UserTableProps = {
+  users: UserType[],
+  actions: {
+    addPreUserAction: Function,
+    delPreUserAction: Function
+  }
+}
+
+export const PreUsersTable = (props: PreUserTableProps) => <UserTable {...props} toolbar={PreUserToolbar}/>
+export const UsersTable = (props: UserTableProps) => <UserTable {...props} toolbar={UserToolbar}/>

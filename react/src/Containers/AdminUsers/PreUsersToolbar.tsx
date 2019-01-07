@@ -16,48 +16,65 @@ import { toolbarStyle } from './PreUserToolbarStyle'
 
 type IProps = {
   selected: UserType | null
+  actions: {
+    addPreUserAction: (email: string) => {},
+    delPreUserAction: Function
+}
 } & WithTheme
 
-const PreUserToolbarView = (props: IProps) => {
-  const { selected } = props;
-  const tbStyle = toolbarStyle(props.theme)
-  console.log('tbstyle', tbStyle)
+class PreUserToolbarView extends React.Component<IProps> {
 
-  return (
-    <Toolbar
-      className={`Toolbar ${tbStyle.root} ${tbStyle.highlight}`}
-    >
-      <div className={`classes.title ${tbStyle.title}`}>
+  public handleAddUser = () => {
+    const email = this.props.selected!.email
+    this.props.actions.addPreUserAction(email)
+  }
 
-        {!!selected ? (
-          <Typography color="inherit" variant="subtitle1">
-            {selected.name + ' ' + selected.surname}
-          </Typography>
-        ) : (
+  public handleRemoveUser = () => {
+    const email = this.props.selected!.email
+    this.props.actions.delPreUserAction(email)
+  }
+
+
+  public render() {
+    const { selected } = this.props;
+    const tbStyle = toolbarStyle(this.props.theme)
+    console.log('tbstyle', tbStyle)
+
+    return (
+      <Toolbar
+        className={`Toolbar ${tbStyle.root} ${tbStyle.highlight}`}
+      >
+        <div className={`classes.title ${tbStyle.title}`}>
+          {!!selected ? (
+            <Typography color="inherit" variant="subtitle1">
+              {selected.name + ' ' + selected.surname}
+            </Typography>
+          ) : (
             <Typography variant="h6" id="tableTitle">
               Usuarios Registrados
-          </Typography>
-          )}
-      </div>
-      <div className={`classes.spacer ${tbStyle.spacer}`} />
-      {!!selected ? (
-        <div className={`classes.actions ${tbStyle.actions}`}>
-          <Tooltip title="Delete">
-            <IconButton aria-label="Delete">
-              <DeleteIcon />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Add user">
-            <IconButton aria-label="Add user">
-              <PersonAdd />
-            </IconButton>
-          </Tooltip>
+            </Typography>
+            )}
         </div>
-      ) : (
-          <div className={`classes.actions ${tbStyle.actions}`}></div>
-        )}
-    </Toolbar>
-  )
+        <div className={`classes.spacer ${tbStyle.spacer}`} />
+        {!!selected ? (
+          <div className={`classes.actions ${tbStyle.actions}`}>
+            <Tooltip title="Delete">
+              <IconButton aria-label="Delete" onClick={this.handleRemoveUser}>
+                <DeleteIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Add user">
+              <IconButton aria-label="Add user" onClick={this.handleAddUser}>
+                <PersonAdd />
+              </IconButton>
+            </Tooltip>
+          </div>
+        ) : (
+            <div className={`classes.actions ${tbStyle.actions}`}></div>
+          )}
+      </Toolbar>
+    )
+  }
 }
 
 export const PreUserToolbar = withTheme()(PreUserToolbarView)

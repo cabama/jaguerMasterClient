@@ -5,6 +5,7 @@ import { MenuBar } from '../../Components/Menu/MenuBar'
 import { DeviceType } from '../../Redux/Store/setupStore'
 import { SetupTypes } from '../../Redux/Actions/setupActions'
 import { connect } from 'react-redux'
+import { SnackBar, SnackbarProps } from '../../Components/SnackBar/SnackBar'
 
 const AppStyle: React.CSSProperties = {
   flexGrow: 1,
@@ -27,21 +28,29 @@ interface IProps extends IDispatchProps {
   MenuBar: boolean
   SideMenu: boolean
   className?: string
+  snackbar?: SnackbarProps
+
 }
 
 class View extends React.Component<IProps> {
 
-  constructor(props: IProps) {
-    super(props)
+  getSnackBar = (snackbar: SnackbarProps | undefined) => {
+    if (snackbar && snackbar.visible) {
+      console.log('hay snackebar')
+      return <SnackBar {...snackbar} />
+    }
+    else return <div></div>
   }
 
   public render() {
+    console.log('renderProps', this.props)
     return (<div className={`View ${this.props.className}`}>
       {this.getMenuBar()}
       <div style={{ ...AppStyle, height: 'calc(100% - 56px)' }}>
         {this.getSideMenu()}
         <Grid container={true} justify="center" style={MainStyle(this.props.MenuBar)}>
           {this.props.children}
+          {this.getSnackBar(this.props.snackbar)}
         </Grid>
       </div>
     </div>)
