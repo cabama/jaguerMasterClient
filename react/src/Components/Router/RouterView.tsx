@@ -11,6 +11,7 @@ import { AdminUsers } from '../../Containers/AdminUsers/AdminUsers'
 import { IUserStore } from '../../Redux/Store/userStore'
 import { Temporada } from '../../Containers/Temporada/Temporada'
 import { Resultados, Calendario } from '../../Containers/Resultados/Resultados'
+import { NewEventPage } from '../../Containers/NewEvent/NewEvent';
 
 interface IPrivateRouteProps extends RouteProps {
   isAuth: boolean
@@ -60,6 +61,12 @@ export class MainViewComponent extends React.Component<MainViewComponentProps> {
             <PrivateRoute
               path="/adminUsers"
               privateComponent={AdminUsers}
+              redirectComponent={Login}
+              isAuth={isAdmin}
+            />
+            <PrivateRoute
+              path="/nuevoEvento"
+              privateComponent={NewEventPage}
               redirectComponent={Login}
               isAuth={isAdmin}
             />
