@@ -29,7 +29,6 @@ interface IProps extends IDispatchProps {
   SideMenu: boolean
   className?: string
   snackbar?: SnackbarProps
-
 }
 
 class View extends React.Component<IProps> {
@@ -43,7 +42,6 @@ class View extends React.Component<IProps> {
   }
 
   public render() {
-    console.log('renderProps', this.props)
     return (<div className={`View ${this.props.className}`}>
       {this.getMenuBar()}
       <div style={{ ...AppStyle, height: 'calc(100% - 56px)' }}>

@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { Login } from '../../Containers/Login/Login'
 import { Profile } from '../../Containers/Profile/Profile'
 import { SignIn } from '../../Containers/SignIn/SignIn'
+import { AddEvent } from '../../Containers/AddEvent/AddEvent'
 import { UserTypes } from '../../Redux/Actions/UserActions'
 import { AdminUsers } from '../../Containers/AdminUsers/AdminUsers'
 import { IUserStore } from '../../Redux/Store/userStore'
@@ -60,6 +61,12 @@ export class MainViewComponent extends React.Component<MainViewComponentProps> {
             <PrivateRoute
               path="/adminUsers"
               privateComponent={AdminUsers}
+              redirectComponent={Login}
+              isAuth={isAdmin}
+            />
+            <PrivateRoute
+              path="/nuevoEvento"
+              privateComponent={AddEvent}
               redirectComponent={Login}
               isAuth={isAdmin}
             />
