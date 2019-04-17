@@ -1963,8 +1963,8 @@ diffie-hellman@^5.0.0:
     randombytes "^2.0.0"
 
 dir-glob@^2.0.0:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/dir-glob/-/dir-glob-2.2.1.tgz#ce8413234ffe8452b76b7741c32f116cf2a7b1a7"
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/dir-glob/-/dir-glob-2.2.2.tgz#fa09f0694153c8918b18ba0deafae94769fc50c4"
   dependencies:
     path-type "^3.0.0"
 
