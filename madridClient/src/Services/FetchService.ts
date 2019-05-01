@@ -1,46 +1,35 @@
-import { getUrlsEnviroment } from '../Enviroments'
-import { LoginService } from './LoginService'
-
-interface IFetchParams {
+// import { getUrlsEnviroment } from '../Enviroments'
+export interface IFetchParams {
   path?: string,
   init?: RequestInit,
   baseUrl?: string,
   url?: string,
 }
 
-export class Fetch {
+// const baseUrl = getUrlsEnviroment().baseApi
+export const JagerFetch = (fetchParams: IFetchParams, mock?: any): Promise<Response> => {
 
-  public baseUrl: string
+  // return mock if we have mock mode
+  if (process.env.REACT_APP_MOCK === 'TRUE' && mock) {
+    return new Promise(resolve => setTimeout(() => {
+      const response = new Response(
+        JSON.stringify(mock),
+        {
+          status: 200,
+          statusText: 'OK',
+          headers: { 'Content-Type': 'application/json' },
+        } as ResponseInit)
 
-  constructor () {
-    this.baseUrl = getUrlsEnviroment().baseApi
+      resolve(response)
+    }
+      , 100))
   }
 
-  public fetch (fetchParams: IFetchParams, mock?: any): Promise<Response> {
-
-    // return mock if we have mock mode
-    if (process.env.REACT_APP_MOCK === 'TRUE' && mock) {
-      return new Promise(resolve => setTimeout(() => {
-        const response = new Response(
-          JSON.stringify(mock), 
-          {
-            status: 200,
-            statusText: 'OK',
-            headers: { 'Content-Type': 'application/json' },
-          } as ResponseInit)
-       
-        resolve(response)
-      }
-        , 100))
-    } 
-
-    const {path, init, baseUrl} = fetchParams
-    const token = LoginService.getToken()
-    const initRequest = { ...init, ...{ headers: { ...{ Authorization: 'JWT ' + token}}}}
-    if (fetchParams.url) return fetch(fetchParams.url, initRequest)
-    const base = baseUrl || this.baseUrl
-    const url = base + '/' + path
-    return fetch(url, initRequest)
-  }
-
+  const { path, init, baseUrl } = fetchParams
+  const initRequest = { ...init, ...{ headers: { } } }
+  if (fetchParams.url) return fetch(fetchParams.url, initRequest)
+  const base = baseUrl
+  const url = base + '/' + path
+  return fetch(url, initRequest)
 }
+

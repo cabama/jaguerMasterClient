@@ -37,7 +37,11 @@ const common = (env) => {
     devServer: {
       host: '0.0.0.0',
       port: 2727,
+      contentBase: path.resolve(__dirname, 'dist'),
       historyApiFallback: true,
+      hot: true,
+      inline: true,
+      publicPath: "/"
     },
 
     module: {
@@ -80,6 +84,7 @@ const common = (env) => {
 
       // Generate index.html file in the output
       new HtmlWebpackPlugin({
+        filename:'index.html',
         template: './src/index.html'
       }),
       // Copy React Modules to dist folder

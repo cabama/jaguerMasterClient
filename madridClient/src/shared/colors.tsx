@@ -1,4 +1,4 @@
-import {colors} from '@material-ui/core'
+import * as colors from '@material-ui/core/colors'
 
 export const mcPrimary = colors.blue[700]
 export const mcLight = 'var(--mc-light)'

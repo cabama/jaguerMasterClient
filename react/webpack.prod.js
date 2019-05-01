@@ -9,6 +9,7 @@ module.exports = {
   },
   plugins: [
     new CopyWebpackPlugin([
+      { from: __dirname + '/src/Services/worker.js', to: __dirname + "/dist/worker.js" },
       { from: __dirname + '/node_modules/react/umd/react.production.min.js', to: __dirname + "/dist/react.js" },
       { from: __dirname + '/node_modules/react-dom/umd/react-dom.production.min.js', to: __dirname + "/dist/react-dom.js" },
     ])

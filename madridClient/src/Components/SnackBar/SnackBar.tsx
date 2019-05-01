@@ -1,6 +1,9 @@
 import * as React from 'react'
-import { Snackbar, SnackbarContent, withTheme, WithTheme } from '@material-ui/core'
-import { IconButton } from '@material-ui/core'
+import withTheme from '@material-ui/core/styles/withTheme'
+import IconButton from '@material-ui/core/IconButton/IconButton'
+import Snackbar from '@material-ui/core/Snackbar/Snackbar'
+import SnackbarContent from '@material-ui/core/SnackbarContent'
+import { SnackBarStyle } from './SnackBarStyle'
 import {
   Warning,
   CheckCircle,
@@ -8,61 +11,50 @@ import {
   Info,
   Close
 } from '@material-ui/icons'
-import { SnackBarStyle } from './SnackBarStyle'
-
-export type SnackbarProps = {
-  visible: boolean
-  message?: string
-  anchorOrigin?: { vertical: any, horizontal: any }
-  duration?: number
-  variant?: 'success' | 'warning' | 'error' | 'info'
-} & Partial<WithTheme>
-
-type IState = {
-  visible: boolean
-}
 
 const variantIcon = {
   success: CheckCircle,
   warning: Warning,
   error: ErrorIcon,
-  info: Info,
-};
+  info: Info
+}
 
-class SnackbarView extends React.Component<SnackbarProps, IState> {
+export const SnackBarContext = React.createContext({
+  openSnackbar: (message: string, duration?: number, variant?: string) => {}
+})
 
-  constructor(props: SnackbarProps) {
-    super(props)
-    this.state = {
-      visible: this.props.visible
-    }
+const SnackbarView = (props: any) => {
+  const [visible, setVisible] = React.useState(false)
+  const [message, setMessage] = React.useState('')
+  const [variant, setVariant] = React.useState('info')
+  const [duration, setDuration] = React.useState(1)
+  const [children, setChildren] = React.useState()
+
+  React.useEffect(() => { setChildren(props.children)}, [])
+
+  const openSnackBar = (message: string, duration = 5000, variant = 'info') => {
+    setVisible(true)
+    setMessage(message)
+    setVariant(variant)
+    setDuration(duration)
   }
 
-  public handleClose = (event: any, reason: string)  => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    this.setState({ visible: false });
+  const closeSnackBar = () => {
+    console.log('Intentando cerrar el snack')
+    setVisible(false)
   }
 
-  public render() {
+  const style = SnackBarStyle(props.theme)
+  const Icon = variantIcon[variant]
 
-    if (!this.state.visible) return (<div />)
+  console.log('snackView rerender')
 
-    const anchorOrigin = this.props.anchorOrigin || { vertical: 'bottom', horizontal: 'right' }
-    const message = this.props.message || ''
-    const duration = this.props.duration || 1000
-    const variant = this.props.variant || 'info'
-    const style = SnackBarStyle(this.props.theme!)
-    const Icon = variantIcon[variant];
-
-    return (
+  return (
+    <SnackBarContext.Provider value={{ openSnackbar: openSnackBar }}>
       <Snackbar
-        anchorOrigin={anchorOrigin}
-        open={this.state.visible}
+        open={visible}
         autoHideDuration={duration}
-        onClose={this.handleClose}
-
+        onClose={closeSnackBar}
       >
         <SnackbarContent
           className={`SNACK ${style[variant]}`}
@@ -78,16 +70,16 @@ class SnackbarView extends React.Component<SnackbarProps, IState> {
               key="close"
               aria-label="Close"
               color="inherit"
-              onClick={() => { }}
+              onClick={() => closeSnackBar()}
             >
               <Close className={style.icon} />
-            </IconButton>,
+            </IconButton>
           ]}
         />
       </Snackbar>
-
-    )
-  }
+      {children}
+    </SnackBarContext.Provider>
+  )
 }
 
 export const SnackBar = withTheme()(SnackbarView)

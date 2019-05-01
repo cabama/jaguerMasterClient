@@ -6,6 +6,7 @@ import { colors, createMuiTheme, MuiThemeProvider } from '@material-ui/core'
 // import { LeftMenuDesktop } from './Components/LeftMenu/LeftMenuDesktop'
 import { MainView } from './Components/Router/RouterView'
 import { MyStore } from './Redux/Store/Store'
+import { setUpWebPush } from './Services/Webpush'
 
 const theme = createMuiTheme(
   {
@@ -25,6 +26,8 @@ class App extends React.Component {
 
   constructor (props: any) {
     super(props)
+
+    setUpWebPush()
 
     const reduxDevTools = process.env.REACT_APP_MODE === 'DEV'
       ? (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__()

@@ -13,24 +13,25 @@ module.exports = {
   output: {
     path: resolve('dist'),
     filename: 'bundle.js',
-    
+          publicPath: '/',
+
   },
 
   // Enable sourcemaps for debugging webpack's output.
-  devtool: "source-map",
+  devtool: 'source-map',
   watch: true,
 
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.
-    extensions: [".ts", ".tsx", ".js", ".json"]
+    extensions: ['.ts', '.tsx', '.js', '.json']
   },
 
   devServer: {
     port: '3333',
     // Change it if other port needs to be used
     hot: true,
-    contentBase: 'dist'
-
+    contentBase: 'dist',
+    historyApiFallback: true
   },
 
   module: {
@@ -39,50 +40,56 @@ module.exports = {
       {
         test: /\.tsx?$/,
         exclude: /node_modules/,
-        loader: "awesome-typescript-loader"
+        loader: 'awesome-typescript-loader'
       },
 
       // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
       {
-        enforce: "pre",
+        enforce: 'pre',
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: "source-map-loader"
+        loader: 'source-map-loader'
       },
       // import all .css style files
       {
         test: /\.css$/,
         exclude: /node_modules/,
-        use: ['style-loader', 'css-loader'],
+        use: ['style-loader', 'css-loader']
       }
     ]
   },
-
 
   // When importing a module whose path matches one of the following, just
   // assume a corresponding global variable exists and use that instead.
   // This is important because it allows us to avoid bundling all of our
   // dependencies, which allows browsers to cache those libraries between builds.
   externals: {
-    "react": "React",
-    "react-dom": "ReactDOM"
+    react: 'React',
+    'react-dom': 'ReactDOM'
   },
 
   plugins: [
-
     // Generate index.html file in the output
     new HtmlWebpackPlugin({
       template: './src/index.html'
     }),
 
-    new CopyWebpackPlugin([
-      { from: __dirname + '/node_modules/react/umd/react.development.js', to: __dirname + "/dist/react.js" },
-      { from: __dirname + '/node_modules/react-dom/umd/react-dom.development.js', to: __dirname + "/dist/react-dom.js" },
-    ], { debug: true }),
+    new CopyWebpackPlugin(
+      [
+        {
+          from: __dirname + '/node_modules/react/umd/react.development.js',
+          to: __dirname + '/dist/react.js'
+        },
+        {
+          from:
+            __dirname + '/node_modules/react-dom/umd/react-dom.development.js',
+          to: __dirname + '/dist/react-dom.js'
+        }
+      ],
+      { debug: true }
+    ),
 
     new CheckerPlugin()
-
-
   ]
 }
 

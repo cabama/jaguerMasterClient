@@ -1,28 +1,10 @@
 import AppBar from '@material-ui/core/AppBar'
 import IconButton from '@material-ui/core/IconButton'
-import { withStyles } from '@material-ui/core/styles'
 import Toolbar from '@material-ui/core/Toolbar'
 import MenuIcon from '@material-ui/icons/Menu'
 import * as React from 'react'
-import { connect } from 'react-redux'
-import { Dispatch } from 'redux'
-import { SetupTypes } from '../../Redux/Actions/setupActions'
-import AvatarComponent from './AvatarComponent/AvatarComponent'
 
-const styles = {
-  flex: {
-    flex: 1,
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20,
-  },
-  root: {
-    flexGrow: 1,
-  },
-}
-
-export function MenuBarView (props: any) {
+export function MenuBar (props: any) {
   return (
     <div >
       <AppBar position="fixed" style={{height: '65px'}}>
@@ -34,29 +16,9 @@ export function MenuBarView (props: any) {
           >
             <MenuIcon />
           </IconButton>
-          <h4 style={{flexGrow: 1}}> Jager Master C.F.  </h4>
-          <AvatarComponent/>
+          <h4 style={{flexGrow: 1}}>Juegos Deportivos Municipales</h4>
         </Toolbar>
       </AppBar>
     </div>
   )
 }
-
-const styledMeuBar = withStyles(styles)(MenuBarView)
-
-const mapStateToProps = (state: any) => {
-  return {
-    user: state.user,
-  }
-}
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    changeDrawableView: (mobileDevice: boolean) => dispatch({ type: SetupTypes.changeDrawableView}),
-  }
-}
-
-export const MenuBar = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(styledMeuBar)

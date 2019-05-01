@@ -1,51 +1,37 @@
 import * as React from 'react'
-import { Provider } from 'react-redux'
-import { createStore, Store } from 'redux'
-
-import { colors, createMuiTheme, MuiThemeProvider } from '@material-ui/core'
-// import { LeftMenuDesktop } from './Components/LeftMenu/LeftMenuDesktop'
 import { RouterComponent } from './Components/Router/RouterView'
-import { MyStore } from './Redux/Store/Store'
+import * as colors from '@material-ui/core/colors'
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
+import createMuiTheme from '@material-ui/core/styles/createMuiTheme'
+import { SnackBar } from './Components/SnackBar/SnackBar'
 
-const theme = createMuiTheme(
-  {
-    palette: {
-      primary: colors.purple,
-      secondary: colors.yellow,
-    },
-    typography: {
-      useNextVariants: true,
-    },
+const theme = createMuiTheme({
+  palette: {
+    primary: colors.blue,
+    secondary: colors.blueGrey
   },
-)
+  typography: {
+    useNextVariants: true
+  }
+})
 
 class App extends React.Component {
-
-  private store: any
-
-  constructor (props: any) {
+  constructor(props: any) {
     super(props)
-
-    const reduxDevTools = process.env.REACT_APP_MODE === 'DEV'
-      ? (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__()
-      : undefined
-
-    this.store = createStore(
-      MyStore,
-      {},
-      reduxDevTools,
-    ) as Store<any>
-
   }
 
-  public render () {
+  componentDidMount() {
+    console.log('APP - Component didmount')
+  }
+
+  public render() {
     return (
       <div className="App">
-        <Provider store={this.store}>
-          <MuiThemeProvider theme={theme}>
+        <MuiThemeProvider theme={theme}>
+          <SnackBar>
             <RouterComponent />
-          </MuiThemeProvider>
-        </Provider>
+          </SnackBar>
+        </MuiThemeProvider>
       </div>
     )
   }
