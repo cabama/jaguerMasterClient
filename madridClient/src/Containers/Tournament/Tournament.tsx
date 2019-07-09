@@ -3,12 +3,13 @@ import { JagerFetch } from '../../Services/FetchService'
 import { View } from '../../Components/View/View'
 import { SnackBarContext } from '../../Components/SnackBar/SnackBar'
 import { useRouter } from '../../Shared/router'
+import { jagerServiceBaseUrl } from '../../Enviroments';
 
 import BottomNavigation from '@material-ui/core/BottomNavigation'
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
 import RestoreIcon from '@material-ui/icons/Restore'
-import FavoriteIcon from '@material-ui/icons/Favorite'
-import LocationOnIcon from '@material-ui/icons/LocationOn'
+import TableChart from '@material-ui/icons/TableChart'
+import CalendarToday from '@material-ui/icons/CalendarToday'
 
 enum navigationView {
   'clasificacion',
@@ -30,7 +31,7 @@ const fetchTournamentInfo = (teamId: string, tournament: string[]): Promise<any>
     if (!teamId || !tournament) rej('No team Id')
 
     JagerFetch({
-      url: 'http://localhost:2525/api/team/getTournamentData',
+      url: jagerServiceBaseUrl + '/api/team/getTournamentData',
       init: {
         method: 'POST',
         body: formData
@@ -48,6 +49,7 @@ export const TournamentPage = () => {
   const router = useRouter()
   const [tournamentData, setTournamentData] = useState({})
   const [navigation, setNavigation] = useState(navigationView.clasificacion)
+  console.log('tournamentData', tournamentData)
 
   useEffect(() => {
     const params = router.match.params as any
@@ -75,9 +77,9 @@ export const TournamentPage = () => {
         onChange={navigationHandle}
         showLabels
       >
-        <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
-        <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
-        <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} />
+        <BottomNavigationAction label="Clasificacion" icon={<TableChart />} />
+        <BottomNavigationAction label="Resultados" icon={<RestoreIcon />} />
+        <BottomNavigationAction label="Calendario" icon={<CalendarToday />} />
       </BottomNavigation>
     </View>
   )

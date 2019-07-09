@@ -1,13 +1,12 @@
 import * as React from 'react'
 import { JagerFetch } from '../../Services/FetchService'
 import { View } from '../../Components/View/View'
-import { MenuElement } from '../../Components/LeftMenu/LeftMenu'
 import { SnackBarContext } from '../../Components/SnackBar/SnackBar'
 import { useRouter } from '../../Shared/router'
+import { jagerServiceBaseUrl } from '../../Enviroments'
 
 import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper/Paper'
-import Inbox from '@material-ui/icons/Inbox'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 
@@ -18,9 +17,8 @@ const fetchTeams = (teamId: string): Promise<any> => {
     const formData = new FormData()
     formData.append('teamId', teamId)
     if (!teamId) rej('No team Id')
-
     JagerFetch({
-      url: 'http://localhost:2525/api/team/getTeamById',
+      url: jagerServiceBaseUrl + '/api/team/getTeamById',
       init: {
         method: 'POST',
         body: formData
@@ -76,9 +74,9 @@ export const TeamPage = () => {
     [teamId]
   )
 
-  const menuElements: MenuElement[] = [
-    { title: 'La Liga', icon: Inbox, path: '/kf' }
-  ]
+  // const menuElements: MenuElement[] = [
+  //   { title: 'La Liga', icon: Inbox, path: '/kf' }
+  // ]
 
   return <View MenuBar={true} SideMenu={false} >
       <Paper style={{ width: '90%' }}>

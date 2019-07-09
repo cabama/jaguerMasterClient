@@ -5,6 +5,7 @@ import TextField from '@material-ui/core/TextField/TextField'
 import Typography from '@material-ui/core/Typography'
 import { SnackBarContext } from '../../Components/SnackBar/SnackBar'
 import { TeamsFounded } from './TeamsFounded'
+import { jagerServiceBaseUrl } from '../../Enviroments';
 const { useState, useContext, useEffect } = React
 
 let cacellTimeOut: any
@@ -26,9 +27,9 @@ const fetchTeams = (teamName: string): Promise<any> => {
     const formData = new FormData()
     formData.append('team', teamName)
     if (!teamName) return
-
+    
     JagerFetch({
-      url: 'http://localhost:2525/api/team/getTeamsByName',
+      url: jagerServiceBaseUrl + '/api/team/getTeamsByName',
       init: {
         method: 'POST',
         body: formData
