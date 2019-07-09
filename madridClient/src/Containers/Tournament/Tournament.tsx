@@ -3,7 +3,11 @@ import { JagerFetch } from '../../Services/FetchService'
 import { View } from '../../Components/View/View'
 import { SnackBarContext } from '../../Components/SnackBar/SnackBar'
 import { useRouter } from '../../Shared/router'
-import { jagerServiceBaseUrl } from '../../Enviroments';
+import { jagerServiceBaseUrl } from '../../Enviroments'
+import { TeamRank } from '../../types/TeamRank'
+
+import { RankingTable } from './Components/RankingTable'
+
 
 import BottomNavigation from '@material-ui/core/BottomNavigation'
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
@@ -19,22 +23,16 @@ enum navigationView {
 
 const { useState, useContext, useEffect } = React
 
-const fetchTournamentInfo = (teamId: string, tournament: string[]): Promise<any> => {
+const fetchTournamentRanking = (teamId: string, tournament: string[]): Promise<TeamRank> => {
   const [temporada, competicion, grupo, fase] = tournament
+  const url = jagerServiceBaseUrl + '/api/tournament/ranking'
   return new Promise((res, rej) => {
-    const formData = new FormData()
-    formData.append('teamId', teamId)
-    formData.append('temporada', temporada)
-    formData.append('competicion', competicion)
-    formData.append('grupo', grupo)
-    formData.append('fase', fase)
     if (!teamId || !tournament) rej('No team Id')
-
+    const urlQueryParams = `${url}?temporada=${temporada}&competicion=${competicion}&grupo=${grupo}&fase=${fase}`
     JagerFetch({
-      url: jagerServiceBaseUrl + '/api/team/getTournamentData',
+      url: urlQueryParams,
       init: {
-        method: 'POST',
-        body: formData
+        method: 'GET',
       }
     }).then(response => {
       response.json().then(value => {
@@ -47,16 +45,16 @@ const fetchTournamentInfo = (teamId: string, tournament: string[]): Promise<any>
 export const TournamentPage = () => {
   const snackBar = useContext(SnackBarContext)
   const router = useRouter()
-  const [tournamentData, setTournamentData] = useState({})
+  const [tournamentRanking, setTournamentData] = useState([] as TeamRank[])
   const [navigation, setNavigation] = useState(navigationView.clasificacion)
-  console.log('tournamentData', tournamentData)
+  console.log('tournamentData', tournamentRanking)
 
   useEffect(() => {
     const params = router.match.params as any
     const teamId = params.teamId
     const tournament = (params.tournamentId as string).split('-')
     
-    fetchTournamentInfo(teamId, tournament)
+    fetchTournamentRanking(teamId, tournament)
       .then((value: any) => {
         setTournamentData(value)
       })
@@ -71,6 +69,9 @@ export const TournamentPage = () => {
   return (
     <View MenuBar={true} SideMenu={false}>
       <div className="tournamentView" />
+
+      <RankingTable ranking={tournamentRanking}/>
+
       <BottomNavigation
       style={{position: 'fixed', bottom: '0'}}
         value={navigation}
