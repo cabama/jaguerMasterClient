@@ -1,12 +1,12 @@
 import * as React from 'react'
 import Typography from '@material-ui/core/Typography'
+import { style, media } from 'typestyle'
 import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
 import Button from '@material-ui/core/Button'
 import CardContent from '@material-ui/core/CardContent'
-import { style, media } from 'typestyle'
-import { ITeam } from '../../Shared/JdmTypes'
-import { RouterContext } from '../../Shared/router'
+import { ITeam } from 'Shared/JdmTypes'
+import { useRouter } from 'Shared/router'
 
 const teamsFoundedStyle: React.CSSProperties = {
   display: 'flex',
@@ -31,7 +31,7 @@ const cardGrid = style(
 )
 
 const TeamCard = (props: {team: ITeam}) => {
-  const router = React.useContext(RouterContext)
+  const router = useRouter()
   return (
     <Card style={teamCardStyle}>
       <CardContent>
@@ -43,7 +43,7 @@ const TeamCard = (props: {team: ITeam}) => {
           {props.team.Nombre_competicion}
         </Typography>
         <Typography component="h5" variant="h5">
-          {props.team['Nombre_equipo']}
+          {props.team.Nombre_equipo}
         </Typography>
         <Typography variant="subtitle1" color="textSecondary">
           {props.team.Nombre_deporte}
@@ -58,7 +58,7 @@ const TeamCard = (props: {team: ITeam}) => {
         <Button
           size="small"
           color="primary"
-          onClick={ () => router.history.push('team/' + props.team['Codigo_equipo']) }
+          onClick={ () => router.history.push('team/' + props.team.Codigo_equipo) }
         >
           Continuar
         </Button>
@@ -67,7 +67,7 @@ const TeamCard = (props: {team: ITeam}) => {
   )
 }
 
-export const TeamsFounded = (props: { teams: ITeam[] } ) => {
+export const TeamsFounded = (props: { teams: ITeam[] }) => {
   return (
     <div className="teamsFound" style={teamsFoundedStyle}>
       {props.teams.map((value: ITeam, index: number) =>

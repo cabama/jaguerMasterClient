@@ -17,7 +17,7 @@ export const JagerFetch = (fetchParams: IFetchParams, mock?: any): Promise<Respo
         {
           status: 200,
           statusText: 'OK',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json' }
         } as ResponseInit)
 
       resolve(response)
@@ -32,4 +32,3 @@ export const JagerFetch = (fetchParams: IFetchParams, mock?: any): Promise<Respo
   const url = base + '/' + path
   return fetch(url, initRequest)
 }
-

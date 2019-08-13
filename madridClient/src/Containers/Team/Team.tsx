@@ -1,16 +1,15 @@
 import * as React from 'react'
-import { JagerFetch } from '../../Services/FetchService'
-import { View } from '../../Components/View/View'
-import { SnackBarContext } from '../../Components/SnackBar/SnackBar'
-import { useRouter } from '../../Shared/router'
-import { jagerServiceBaseUrl } from '../../Enviroments'
-
 import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper/Paper'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 
-const { useState, useContext, useEffect } = React
+import { JagerFetch } from '../../Services/FetchService'
+import { View } from '../../Components/View/View'
+import { useRouter } from '../../Shared/router'
+import { jagerServiceBaseUrl } from '../../Enviroments'
+
+const { useState, useEffect } = React
 
 const fetchTeams = (teamId: string): Promise<any> => {
   return new Promise((res, rej) => {
@@ -35,7 +34,9 @@ const Tournaments = (props: { tours: any[], team: string }) => {
 
   const router = useRouter()
   const goToTournament = (team: string, tour: any) => {
-    const tournamentId = [tour.Codigo_temporada, tour.Codigo_competicion, tour.Codigo_grupo, tour.Codigo_fase].join('-')
+    const tournamentId =
+      [tour.Codigo_temporada, tour.Codigo_competicion, tour.Codigo_grupo, tour.Codigo_fase]
+      .join('-')
     router.history.push(`/tournament/${team}/${tournamentId}`)
   }
 
@@ -56,7 +57,6 @@ const Tournaments = (props: { tours: any[], team: string }) => {
 }
 
 export const TeamPage = () => {
-  const snackBar = useContext(SnackBarContext)
   const router = useRouter()
   const [teamId, setTeamId] = useState('')
   const [team, setTeam] = useState({} as any)
@@ -69,7 +69,6 @@ export const TeamPage = () => {
         .then((value: any) => {
           setTeam({ ...value.team, tournaments: value.tournaments as any[] })
         })
-        .catch(error => snackBar.openSnackbar(error.message))
     },
     [teamId]
   )

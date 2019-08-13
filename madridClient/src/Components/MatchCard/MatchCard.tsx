@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
-import {Match} from './Match'
+import { Match } from './Match'
 
 interface IProps {
   match: Match
@@ -9,7 +9,7 @@ interface IProps {
 
 export class MatchCard extends React.Component<IProps> {
 
-  public render (){
+  public render () {
     const match = this.props.match
     const fecha = new Date(match.fecha)
     return (

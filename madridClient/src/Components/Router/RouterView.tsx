@@ -7,11 +7,6 @@ import { TeamPage } from '../../Containers/Team/Team'
 import { TournamentPage } from '../../Containers/Tournament/Tournament'
 
 export class RouterComponent extends React.Component<any> {
-
-  a = () => {
-    console.log('asdf')
-  }
-
   public render() {
     return <Grid item={true} xs={12} sm={12} md={12}>
         <Router>
@@ -24,4 +19,3 @@ export class RouterComponent extends React.Component<any> {
       </Grid>
   }
 }
-

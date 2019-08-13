@@ -5,7 +5,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const path = require('path');
 
-
+function srcPath(subdir) {
+  return path.join(__dirname, "src", subdir);
+}
 
 module.exports = {
   mode: 'development',
@@ -13,8 +15,7 @@ module.exports = {
   output: {
     path: resolve('dist'),
     filename: 'bundle.js',
-          publicPath: '/',
-
+    publicPath: '/',
   },
 
   // Enable sourcemaps for debugging webpack's output.
@@ -23,11 +24,19 @@ module.exports = {
 
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.
-    extensions: ['.ts', '.tsx', '.js', '.json']
+    extensions: ['.ts', '.tsx', '.js', '.json'],
+    alias: {
+      Components: srcPath('Components'),
+      Containers: srcPath('Containers'),
+      Mocks: srcPath('Mocks'),
+      Services: srcPath('Services'),
+      Shared: srcPath('Shared'),
+      Types: srcPath('Types')
+    },
   },
 
   devServer: {
-    port: '3333',
+    port: '2222',
     // Change it if other port needs to be used
     hot: true,
     contentBase: 'dist',

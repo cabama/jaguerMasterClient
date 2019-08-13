@@ -5,7 +5,10 @@
     "outDir": "dist",
     "module": "esnext",
     "target": "es5",
-    "lib": ["es6", "dom"],
+    "lib": [
+      "es6",
+      "dom"
+    ],
     "sourceMap": true,
     "allowJs": true,
     "jsx": "react",
@@ -19,8 +22,27 @@
     "noUnusedLocals": true,
     "keyofStringsOnly": true,
     "skipLibCheck": true,
-    "experimentalDecorators": true
-      
+    "experimentalDecorators": true,
+    "paths": {
+      "Components/*": [
+        "Components/*"
+      ],
+      "Containers/*": [
+        "Containers/*"
+      ],
+      "Mocks/*": [
+        "Mocks/*"
+      ],
+      "Services/*": [
+        "Services/*"
+      ],
+      "Shared/*": [
+        "Shared/*"
+      ],
+      "Types/*": [
+        "Types/*"
+      ]
+    }
   },
   "exclude": [
     "node_modules",

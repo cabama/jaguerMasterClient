@@ -21,7 +21,7 @@ export abstract class Environment {
       baseUrl: this.baseUrl,
       baseApi: this.baseApi,
       baseUsers: this.baseUsers,
-      baseAvatar: this.baseAvatar,
+      baseAvatar: this.baseAvatar
     }
   }
 }

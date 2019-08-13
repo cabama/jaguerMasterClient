@@ -1,7 +1,7 @@
 import { Grid } from '@material-ui/core'
 import * as React from 'react'
-import { LeftMenu, MenuElement } from '../../Components/LeftMenu/LeftMenu'
-import { MenuBar } from '../../Components/Menu/MenuBar'
+import { MenuElement } from '../LeftMenu/LeftMenu'
+import { MenuBar } from '../Menu/MenuBar'
 
 const AppStyle: React.CSSProperties = {
   flexGrow: 1,
@@ -47,7 +47,8 @@ export class View extends React.Component<IProps> {
   }
 
   private getSideMenu() {
-    return this.props.SideMenu ? <LeftMenu menuElements={this.props.SidePageElements}/> : null
+    return null
+    // return this.props.SideMenu ? <LeftMenu menuElements={this.props.SidePageElements}/> : null
   }
 
   private getMenuBar() {
