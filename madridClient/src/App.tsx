@@ -7,7 +7,10 @@ import { RouterComponent } from 'Components/Router/RouterView'
 const theme = createMuiTheme({
   palette: {
     primary: colors.blue,
-    secondary: colors.blueGrey
+    secondary: colors.blueGrey,
+    background: {
+      default: colors.common.white
+    }
   }
 })
 

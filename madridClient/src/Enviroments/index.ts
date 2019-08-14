@@ -13,4 +13,6 @@ export function getUrlsEnviroment(): IUrlsEnv {
     : prodEnvironmet.getUrls()
 }
 
-export const jagerServiceBaseUrl = true ?  'http://localhost:2525' : 'http://reshuhormiguero.club:2525'
+export const jagerServiceBaseUrl = false
+  ? 'http://localhost:2525'
+  : 'http://reshuhormiguero.club:2525'

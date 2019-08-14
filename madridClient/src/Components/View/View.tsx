@@ -1,7 +1,14 @@
-import { Grid } from '@material-ui/core'
 import * as React from 'react'
+import Grid from '@material-ui/core/Grid'
+import { useTheme } from '@material-ui/core'
 import { MenuElement } from '../LeftMenu/LeftMenu'
 import { MenuBar } from '../Menu/MenuBar'
+
+const VIEW_STYLE: React.CSSProperties = {
+  position: 'absolute',
+  height: '100%',
+  width: '100%'
+}
 
 const AppStyle: React.CSSProperties = {
   flexGrow: 1,
@@ -27,31 +34,32 @@ type IProps = {
   className?: string
 }
 
-export class View extends React.Component<IProps> {
-  public render() {
-    return (
-        <div className={`View ${this.props.className}`}>
-          {this.getMenuBar()}
-          <div style={{ ...AppStyle, height: 'calc(100% - 56px)' }}>
-            {this.getSideMenu()}
-            <Grid
-              container={true}
-              justify="center"
-              style={MainStyle(this.props.MenuBar)}
-            >
-              {this.props.children}
-            </Grid>
-          </div>
-        </div>
-    )
-  }
-
-  private getSideMenu() {
+export const View: React.FunctionComponent<IProps> = (props) => {
+  const theme = useTheme()
+  const getSideMenu = () => {
     return null
     // return this.props.SideMenu ? <LeftMenu menuElements={this.props.SidePageElements}/> : null
   }
 
-  private getMenuBar() {
-    return this.props.MenuBar ? <MenuBar /> : null
+  const getMenuBar = () => {
+    return props.MenuBar ? <MenuBar /> : null
   }
+
+  return (
+    <div
+      className={`View ${props.className}`}
+      style={{ ...VIEW_STYLE, background: theme.palette.background.default }}
+    >
+      {getMenuBar()}
+      <div style={{ ...AppStyle, paddingTop: '65px' }}>
+        {getSideMenu()}
+        <Grid
+          container={true}
+          justify="center"
+        >
+          {props.children}
+        </Grid>
+      </div>
+    </div>
+  )
 }

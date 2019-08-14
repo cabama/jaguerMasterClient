@@ -3,14 +3,11 @@ import Typography from '@material-ui/core/Typography'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
 import CardContent from '@material-ui/core/CardContent'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
-
 import { JagerFetch } from '../../Services/FetchService'
 import { View } from '../../Components/View/View'
 import { useRouter } from '../../Shared/router'
 import { jagerServiceBaseUrl } from '../../Enviroments'
-
+import { TournamentCard } from './TournamentsCard';
 const { useState, useEffect } = React
 
 const fetchTeams = (nombreEquipo: string, deporte: string, categoria: string): Promise<any> => {
@@ -31,32 +28,6 @@ const fetchTeams = (nombreEquipo: string, deporte: string, categoria: string): P
       })
     })
   })
-}
-
-const Tournaments = (props: { tours: any[], team: string }) => {
-
-  const router = useRouter()
-  const goToTournament = (team: string, tour: any) => {
-    const tournamentId =
-      [tour.Codigo_temporada, tour.Codigo_competicion, tour.Codigo_grupo, tour.Codigo_fase]
-        .join('-')
-    router.history.push(`/tournament/${team}/${tournamentId}`)
-  }
-
-  return (
-    <div>
-      {props.tours && typeof props.tours === 'object'
-        ? props.tours.map((tournament, index) =>
-          <ListItem button component="a" onClick={() => goToTournament(props.team, tournament)}>
-            <ListItemText
-              key={index}
-              primary={`${tournament.Nombre_grupo} - ${tournament.Nombre_fase}`}
-            />
-          </ListItem>
-        )
-        : undefined}
-    </div>
-  )
 }
 
 export const TeamPage = () => {
@@ -81,6 +52,9 @@ export const TeamPage = () => {
   // ]
 
   return <View MenuBar={true} SideMenu={true} >
+    <Typography component="h5" variant="h5" style={{ margin: '20px 0', width: '90%' }}>
+      Equipo
+    </Typography>
     <Card style={{ width: '90%' }}>
       <CardHeader title={tournament.equipo.Nombre_equipo || ''}/>
       <CardContent style={{marginTop: 0}}>
@@ -93,17 +67,15 @@ export const TeamPage = () => {
     </Typography>
     {
       Object.keys(tournament.competiciones).map((nombreCompeticion) => {
+
         const competicion = tournament.competiciones[nombreCompeticion]
+
         return (
-          <Card style={{ width: '90%', margin: '10px 0' }}>
-            <Typography component="h6" variant="h6" style={{textAlign: 'center'}}>
-              {nombreCompeticion || ''}
-            </Typography>
-            <Tournaments
-              team={competicion.Codigo_equipo}
-              tours={competicion.tournaments as any[]}
-            />
-          </Card>
+          <TournamentCard
+            tournamentName={nombreCompeticion}
+            team={ competicion.Codigo_equipo }
+            tours={ competicion.tournaments as any[] }
+          />
         )
       })
     }
