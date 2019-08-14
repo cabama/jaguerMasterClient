@@ -7,7 +7,8 @@ import { JagerFetch } from '../../Services/FetchService'
 import { View } from '../../Components/View/View'
 import { useRouter } from '../../Shared/router'
 import { jagerServiceBaseUrl } from '../../Enviroments'
-import { TournamentCard } from './TournamentsCard';
+import { TournamentCard } from './TournamentsCard'
+import { useTheme } from '@material-ui/core'
 const { useState, useEffect } = React
 
 const fetchTeams = (nombreEquipo: string, deporte: string, categoria: string): Promise<any> => {
@@ -31,6 +32,7 @@ const fetchTeams = (nombreEquipo: string, deporte: string, categoria: string): P
 }
 
 export const TeamPage = () => {
+  const theme = useTheme()
   const router = useRouter()
   const [tournament, setTournaments] = useState({} as any)
   const params = router.match.params && (router.match.params as any).teamInfo
@@ -47,19 +49,24 @@ export const TeamPage = () => {
   )
   if (!tournament || !tournament.equipo) return <div></div>
 
-  // const menuElements: MenuElement[] = [
-  //   { title: 'La Liga', icon: Inbox, path: '/kf' }
-  // ]
-
   return <View MenuBar={true} SideMenu={true} >
     <Typography component="h5" variant="h5" style={{ margin: '20px 0', width: '90%' }}>
       Equipo
     </Typography>
     <Card style={{ width: '90%' }}>
-      <CardHeader title={tournament.equipo.Nombre_equipo || ''}/>
+      <CardHeader
+        disableTypography={true}
+        subheader={tournament.equipo.Nombre_equipo}
+        style={{
+          background: theme.palette.primary.main,
+          color: theme.palette.primary.contrastText
+        }}
+      />
       <CardContent style={{marginTop: 0}}>
-          {tournament.equipo.Nombre_deporte || ''} <br/>
-          {tournament.equipo.Nombre_categoria || ''} / {tournament.equipo['Nombre-Sexo'] || ''}
+          Deporte: {tournament.equipo.Nombre_deporte || ''} <br/>
+          Categoría:
+          {tournament.equipo.Nombre_categoria || ''} /
+          {tournament.equipo['Nombre-Sexo'] || ''}
       </CardContent>
     </Card>
     <Typography component="h5" variant="h5" style={{ margin: '20px 0', width: '90%'}}>

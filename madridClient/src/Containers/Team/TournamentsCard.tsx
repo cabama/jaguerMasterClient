@@ -5,6 +5,7 @@ import CardHeader from '@material-ui/core/CardHeader'
 import CardContent from '@material-ui/core/CardContent'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
+import Divider from '@material-ui/core/Divider';
 
 import { useTheme } from '@material-ui/core'
 import { useRouter } from 'Shared/router'
@@ -30,16 +31,26 @@ export const TournamentCard: ITournamentCard = (props) => {
 
   return (
     <Card style={{ width: '90%', margin: '10px 0' }}>
-      <CardHeader title={props.tournamentName} style={{background: theme.palette.primary.dark }}/>
+      <CardHeader
+        disableTypography={true}
+        subheader	={props.tournamentName}
+        style={{
+          background: theme.palette.primary.main,
+          color: theme.palette.primary.contrastText
+        }}
+      />
       <CardContent>
         {props.tours && typeof props.tours === 'object'
           ? props.tours.map((tournament, index) =>
+          <div>
             <ListItem button component="a" onClick={() => goToTournament(props.team, tournament)}>
               <ListItemText
                 key={index}
                 primary={`${tournament.Nombre_grupo} - ${tournament.Nombre_fase}`}
               />
             </ListItem>
+            {(index !== (props.tours.length - 1)) ? <Divider /> : undefined }
+          </div>
           )
           : undefined}
       </CardContent>
