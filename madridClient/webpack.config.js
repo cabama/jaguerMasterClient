@@ -36,8 +36,7 @@ module.exports = {
   },
 
   devServer: {
-    port: '2222',
-    // Change it if other port needs to be used
+    port: '2222',    // Change it if other port needs to be used
     hot: true,
     contentBase: 'dist',
     historyApiFallback: true

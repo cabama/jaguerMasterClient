@@ -58,7 +58,11 @@ const TeamCard = (props: {team: ITeam}) => {
         <Button
           size="small"
           color="primary"
-          onClick={ () => router.history.push('team/' + props.team.Codigo_equipo) }
+          onClick={ () => {
+            const team = props.team
+            const teamCode = [team.Nombre_equipo, team.Nombre_deporte, team.Nombre_categoria]
+            router.history.push('team/' + teamCode.join('::'))
+          }}
         >
           Continuar
         </Button>

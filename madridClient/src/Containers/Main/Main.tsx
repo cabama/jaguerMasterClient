@@ -23,11 +23,13 @@ const debounceFunction = (
   })
 }
 
-const fetchTeams = (teamName: string): Promise<any> => {
+const fetchTeams = (teamName: string, page: number, rowsPerPage: number): Promise<any> => {
   return new Promise((res, rej) => {
     const formData = new FormData()
     formData.append('team', teamName)
-    if (!teamName) return
+    formData.append('page', String(page))
+    formData.append('rowsPerPage', String(rowsPerPage))
+    // if (!teamName) return
 
     JagerFetch({
       url: jagerServiceBaseUrl + '/api/team/getTeamsByName',
@@ -36,12 +38,12 @@ const fetchTeams = (teamName: string): Promise<any> => {
         body: formData
       }
     })
-      .then(response => {
-        response.json().then(value => {
+      .then((response) => {
+        response.json().then((value) => {
           res({ succes: true, data: value })
         })
       })
-      .catch(error => {
+      .catch((error) => {
         rej({ succes: false, data: { error } })
       })
   })
@@ -51,41 +53,50 @@ export const MainPage = () => {
   const [teamName, setTeamName] = useState('')
   const [fetch, setFetched] = useState({ succes: true, data: {} as any })
   const [page, setPage] = useState(0)
-  const [rowsPerPage, setRowsPerPage] = useState(10)
+  const [rowsPerPage, setRowsPerPage] = useState(5)
 
   useEffect(
     () => {
-      debounceFunction(fetchTeams, teamName, 1000)
+      debounceFunction(val => fetchTeams(val, page, rowsPerPage), teamName, 1000)
         .then((value: any) => {
           setFetched(value)
         })
         .catch(setFetched)
     },
-    [teamName]
+    [teamName, rowsPerPage, page]
   )
 
-  if (fetch.succes === false) {
-    setFetched({ ...fetch, succes: true })
-  }
+  if (!fetch.succes) setFetched({ ...fetch, succes: true })
 
   return <View MenuBar={true} SideMenu={false}>
-      <div style={{ width: 'calc(90% - 20px)', padding: '10px' }}>
-        <Typography component="h4" variant="h4">
-          Introduzca su equipo:
+    <div style={{ width: 'calc(90% - 20px)', padding: '10px' }}>
+      <Typography component="h4" variant="h4">
+        Introduzca su equipo:
         </Typography>
-        <TextField label="Nombre del equipo" value={teamName} fullWidth={true} onChange={e => setTeamName(e.target.value)} margin="normal" />
-        { fetch.data && fetch.data.team
-          ? <TeamsFounded teams={fetch.data.team}/>
-          : undefined
-        }
-        <TablePagination
-          component="nav"
-          page={page}
-          rowsPerPage={rowsPerPage}
-          count={100}
-          onChangePage={(_, page) => setPage(page)}
-          onChangeRowsPerPage={(value) => setRowsPerPage(parseInt(value.target.value, 10))}
-        />
-      </div>
-    </View>
+      <TextField
+        label="Nombre del equipo"
+        value={teamName}
+        fullWidth={true}
+        margin="normal"
+        onChange={e => setTeamName(e.target.value)}
+      />
+      {(!fetch.data || !fetch.data.team)
+        ? undefined
+        : (
+          <div>
+            <TeamsFounded teams={fetch.data.team} />
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 20, 50]}
+              component="nav"
+              page={page}
+              rowsPerPage={rowsPerPage}
+              count={100}
+              onChangePage={(_, p) => setPage(p)}
+              onChangeRowsPerPage={value => setRowsPerPage(parseInt(value.target.value, 10))}
+            />
+          </div>
+        )
+      }
+    </div>
+  </View>
 }
