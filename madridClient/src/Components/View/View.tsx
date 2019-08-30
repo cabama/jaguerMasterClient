@@ -19,19 +19,29 @@ const AppStyle: React.CSSProperties = {
   flexDirection: 'row'
 }
 
-const MainStyle = (isMenuBar: boolean): React.CSSProperties => ({
-  marginTop: isMenuBar === true ? '65px' : '0',
-  flexGrow: 1,
-  minWidth: 0,
-  paddingTop: isMenuBar === true ? '10px' : '0',
-  paddingBottom: '10px'
-})
+const footerStyle = (always: boolean): React.CSSProperties => (
+  always
+    ? { position: 'fixed', bottom: 0, zIndex: 99 }
+    : { display: 'block', width: '100%' }
+)
+
+// const MainStyle = (isMenuBar: boolean): React.CSSProperties => ({
+//   marginTop: isMenuBar === true ? '65px' : '0',
+//   flexGrow: 1,
+//   minWidth: 0,
+//   paddingTop: isMenuBar === true ? '10px' : '0',
+//   paddingBottom: '10px'
+// })
 
 type IProps = {
   MenuBar: boolean
   SideMenu: boolean
   SidePageElements?: MenuElement[]
   className?: string
+  footer?: {
+    alwaysVisible: boolean
+    content: any
+  }
 }
 
 export const View: React.FunctionComponent<IProps> = (props) => {
@@ -45,12 +55,21 @@ export const View: React.FunctionComponent<IProps> = (props) => {
     return props.MenuBar ? <MenuBar /> : null
   }
 
+  const getFooter = (footer?: {alwaysVisible: boolean, content: any}) => {
+    if (!footer) return undefined
+    return <div className="footer" style={footerStyle(footer.alwaysVisible)}>
+      {footer.content || undefined}
+    </div>
+  }
+
   return (
     <div
       className={`View ${props.className}`}
       style={{ ...VIEW_STYLE, background: theme.palette.background.default }}
     >
-      {getMenuBar()}
+      <div className="bar" style={{ display: 'block', width: '100%' }}>
+        {getMenuBar()}
+      </div>
       <div style={{ ...AppStyle, paddingTop: '65px' }}>
         {getSideMenu()}
         <Grid
@@ -60,6 +79,7 @@ export const View: React.FunctionComponent<IProps> = (props) => {
           {props.children}
         </Grid>
       </div>
+      { getFooter(props.footer) }
     </div>
   )
 }

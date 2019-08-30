@@ -13,7 +13,11 @@ export class RouterComponent extends React.Component<any> {
           <Switch>
             <Route exact={true} path="/" component={MainPage} />
             <Route exact={true} path="/team/:teamInfo" component={TeamPage} />
-            <Route exact={true} path="/tournament/:teamId/:tournamentId" component={TournamentPage} />
+            <Route
+              exact={true}
+              path="/tournament/:teamId/:tournamentId"
+              component={TournamentPage}
+            />
           </Switch>
         </Router>
       </Grid>

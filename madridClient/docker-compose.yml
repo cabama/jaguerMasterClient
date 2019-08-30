@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  jdm-client:
+    image: client/jdm
+    build: .
+    container_name: jdm-client
+    command: npm run build
+    volumes:
+      - ./dist:/usr/src/jdm/dist
+    ports:
+      - "3331:3333"

@@ -11,13 +11,14 @@ import { useRouter } from 'Shared/router'
 const teamsFoundedStyle: React.CSSProperties = {
   display: 'flex',
   width: 'calc(90% + 20px)',
+  marginBottom: '60px',
   flexFlow: 'wrap',
   justifyContent: 'space-between'
 }
 
 const teamCardStyle: React.CSSProperties = {
   width: '100%',
-  marginTop: '10px'
+  marginTop: '10px',
 }
 
 const cardGrid = style(

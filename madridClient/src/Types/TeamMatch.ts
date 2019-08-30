@@ -1,4 +1,4 @@
-export type IMatch = {
+export type ITeamMatch = {
   'Codigo_temporada': number,
   'Codigo_competicion': string,
   'Codigo_fase': number,

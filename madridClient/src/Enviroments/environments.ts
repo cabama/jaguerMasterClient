@@ -8,9 +8,9 @@ export interface IUrlsEnv {
 export abstract class Environment {
   public baseUrl: string
   public get baseApi () { return this.baseUrl + '/api' }
-  public get baseUsers () { return this.baseApi + '/users'}
-  public get basePublic () { return this.baseUrl + '/public'}
-  public get baseAvatar () { return this.baseUsers + '/avatar'}
+  public get baseUsers () { return this.baseApi + '/users' }
+  public get basePublic () { return this.baseUrl + '/public' }
+  public get baseAvatar () { return this.baseUsers + '/avatar' }
 
   constructor (baseUrl: string) {
     this.baseUrl = baseUrl

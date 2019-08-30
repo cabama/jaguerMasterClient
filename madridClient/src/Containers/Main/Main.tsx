@@ -6,6 +6,7 @@ import { JagerFetch } from 'Services/FetchService'
 import { View } from 'Components/View/View'
 import { jagerServiceBaseUrl } from '../../Enviroments'
 import { TeamsFounded } from './TeamsFounded'
+import Paper from '@material-ui/core/Paper'
 
 const { useState, useEffect } = React
 
@@ -68,35 +69,36 @@ export const MainPage = () => {
 
   if (!fetch.succes) setFetched({ ...fetch, succes: true })
 
-  return <View MenuBar={true} SideMenu={false}>
-    <div style={{ width: 'calc(90% - 20px)', padding: '10px' }}>
-      <Typography component="h4" variant="h4">
-        Introduzca su equipo:
-        </Typography>
-      <TextField
-        label="Nombre del equipo"
-        value={teamName}
-        fullWidth={true}
-        margin="normal"
-        onChange={e => setTeamName(e.target.value)}
+  const footer = (!fetch.data || !fetch.data.team)
+  ? undefined
+  : <Paper>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 20]}
+        component="nav"
+        page={page}
+        rowsPerPage={rowsPerPage}
+        count={100}
+        onChangePage={(_, p) => setPage(p)}
+        onChangeRowsPerPage={value => setRowsPerPage(parseInt(value.target.value, 10))}
       />
-      {(!fetch.data || !fetch.data.team)
-        ? undefined
-        : (
-          <div>
-            <TeamsFounded teams={fetch.data.team} />
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 20, 50]}
-              component="nav"
-              page={page}
-              rowsPerPage={rowsPerPage}
-              count={100}
-              onChangePage={(_, p) => setPage(p)}
-              onChangeRowsPerPage={value => setRowsPerPage(parseInt(value.target.value, 10))}
-            />
-          </div>
-        )
-      }
-    </div>
-  </View>
+    </Paper>
+
+  return <div>
+    <View MenuBar={true} SideMenu={false} footer={{ alwaysVisible: true, content: footer }}>
+      <div style={{ width: 'calc(90% - 20px)', padding: '10px' }}>
+        <Typography component="h5" variant="h5">
+          Busque su equipo:
+        </Typography>
+        <TextField
+          label="Nombre del equipo"
+          value={teamName}
+          fullWidth={true}
+          margin="normal"
+          onChange={e => setTeamName(e.target.value)}
+        />
+        { (!fetch.data || !fetch.data.team) ? undefined : <TeamsFounded teams={fetch.data.team} /> }
+
+      </div>
+    </View>
+  </div>
 }

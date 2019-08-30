@@ -1,17 +1,17 @@
 import * as React from 'react'
+import Grid from '@material-ui/core/Grid'
 import { Card, CardContent } from '@material-ui/core'
-import { IMatch } from 'Types/TeamMatch'
+import { ITeamMatch } from 'Types/TeamMatch'
 
 type MatchCardProps = {
-  match: IMatch
+  match: ITeamMatch
 }
 
 export const MatchCard = (props: MatchCardProps) => {
   const { match } = props
   const date = new Date(match.Date)
   return (
-    <div>
-      <Card style={{ width: '100%' }}>
+      <Card style={{ margin: '20px 10px' }}>
         <CardContent>
           <p>Lugar: {match.Campo}</p>
           <p>Fecha: {date.toLocaleDateString()} {date.toLocaleTimeString()}</p>
@@ -21,23 +21,18 @@ export const MatchCard = (props: MatchCardProps) => {
           <p>Resultado Visitante: {match.Resultado2}</p>
         </CardContent>
       </Card>
-    </div>
   )
 }
 
 type MatchesListProps = {
-  matches: IMatch[]
+  matches: ITeamMatch[]
 }
 
 export const MatchesList = (props: MatchesListProps) => {
   const { matches } = props
   return (
-    <ul>
-      <li>
-        {
-          matches.map(match => <MatchCard match={match}/>)
-        }
-      </li>
-    </ul>
+    <Grid item xs={12}>
+      { matches.map(match => <MatchCard match={match}/>) }
+    </Grid>
   )
 }

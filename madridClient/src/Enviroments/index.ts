@@ -1,7 +1,5 @@
 import { DevEnvironment, IUrlsEnv, ProdEnvironment } from './environments'
 
-const isDev = process.env.REACT_APP_MODE === 'DEV'
-
 const devEnvironmet = new DevEnvironment()
 const prodEnvironmet = new ProdEnvironment()
 
@@ -13,6 +11,6 @@ export function getUrlsEnviroment(): IUrlsEnv {
     : prodEnvironmet.getUrls()
 }
 
-export const jagerServiceBaseUrl = false
+export const jagerServiceBaseUrl = true
   ? 'http://localhost:2525'
   : 'http://reshuhormiguero.club:2525'

@@ -1,4 +1,4 @@
-export type TeamRank = {
+export type ITeamRank = {
   'Codigo_temporada': number
   'Codigo_competicion': string
   'Codigo_fase': number

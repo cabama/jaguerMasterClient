@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { TeamRank } from 'Types/TeamRank'
+import { ITeamRank } from 'Types/TeamRank'
 import { TableHead, Table, TableRow, TableCell, TableBody } from '@material-ui/core'
 
 const cellStyle: React.CSSProperties = {
@@ -12,7 +12,7 @@ const firstCellStyle = {
 }
 
 type IProps = {
-  ranking: TeamRank[]
+  ranking: ITeamRank[]
 }
 
 export const RankingTable = (props: IProps) => {
