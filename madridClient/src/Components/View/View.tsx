@@ -5,9 +5,10 @@ import { MenuElement } from '../LeftMenu/LeftMenu'
 import { MenuBar } from '../Menu/MenuBar'
 
 const VIEW_STYLE: React.CSSProperties = {
-  position: 'absolute',
+  position: 'relative',
   height: '100%',
-  width: '100%'
+  width: '100%',
+  minHeight: 'calc(100vh)'
 }
 
 const AppStyle: React.CSSProperties = {
@@ -21,7 +22,7 @@ const AppStyle: React.CSSProperties = {
 
 const footerStyle = (always: boolean): React.CSSProperties => (
   always
-    ? { position: 'fixed', bottom: 0, zIndex: 99 }
+    ? { position: 'fixed', bottom: 0, zIndex: 99, width: '100%' }
     : { display: 'block', width: '100%' }
 )
 
