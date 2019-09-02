@@ -61,6 +61,7 @@ export const MainPage = () => {
       debounceFunction(val => fetchTeams(val, page, rowsPerPage), teamName, 1000)
         .then((value: any) => {
           setFetched(value)
+          scrollTo(0, 0)
         })
         .catch(setFetched)
     },
