@@ -1,8 +1,10 @@
 import * as React from 'react'
+import * as ReactGA from 'react-ga'
 import Grid from '@material-ui/core/Grid'
 import { useTheme } from '@material-ui/core'
 import { MenuElement } from '../LeftMenu/LeftMenu'
 import { MenuBar } from '../Menu/MenuBar'
+import { useRouter } from 'Shared/router'
 
 const VIEW_STYLE: React.CSSProperties = {
   position: 'relative',
@@ -47,6 +49,7 @@ type IProps = {
 
 export const View: React.FunctionComponent<IProps> = (props) => {
   const theme = useTheme()
+  const router = useRouter()
   const getSideMenu = () => {
     return null
     // return this.props.SideMenu ? <LeftMenu menuElements={this.props.SidePageElements}/> : null
@@ -62,6 +65,7 @@ export const View: React.FunctionComponent<IProps> = (props) => {
       {footer.content || undefined}
     </div>
   }
+  router.history.listen(location => ReactGA.pageview(location.pathname))
 
   return (
     <div

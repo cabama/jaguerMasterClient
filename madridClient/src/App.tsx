@@ -3,6 +3,7 @@ import * as colors from '@material-ui/core/colors'
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme'
 import { RouterComponent } from 'Components/Router/RouterView'
+import * as ReactGA from 'react-ga'
 
 const theme = createMuiTheme({
   palette: {
@@ -24,6 +25,7 @@ class App extends React.Component {
   }
 
   public render() {
+    ReactGA.initialize('UA-146892597-1')
     return (
       <div className="App">
         <MuiThemeProvider theme={theme}>
