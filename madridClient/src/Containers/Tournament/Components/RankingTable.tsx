@@ -19,7 +19,7 @@ type IProps = {
 
 export const RankingTable = (props: IProps) => {
   return (
-  <Grid item xs={11}>
+  <Grid item xs={11} style={{ marginTop: '25px', marginBottom: '65px' }}>
     <Paper>
     <Table>
       <TableHead>
