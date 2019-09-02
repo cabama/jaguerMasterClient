@@ -18,7 +18,7 @@ const teamsFoundedStyle: React.CSSProperties = {
 
 const teamCardStyle: React.CSSProperties = {
   width: '100%',
-  marginTop: '10px',
+  marginTop: '10px'
 }
 
 const cardGrid = style(

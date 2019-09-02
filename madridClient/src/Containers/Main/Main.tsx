@@ -72,7 +72,7 @@ export const MainPage = () => {
 
   const footer = (!fetch.data || !fetch.data.team)
   ? undefined
-  : <Paper>
+  : <Paper elevation={10}>
       <TablePagination
         rowsPerPageOptions={[5, 10, 20]}
         component="nav"
