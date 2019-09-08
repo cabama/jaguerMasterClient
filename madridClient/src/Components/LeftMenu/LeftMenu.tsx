@@ -70,13 +70,14 @@ export const LeftMenu = (props: props) => {
     const visible = true
     const close = handleCloseMenu
     if (matches) {
-      return (
-        <LeftMenuResposive
-          visible={visible}
-          close={close}
-          items={listItems(close)}
-        />
-      )
+      return undefined
+      // return (
+      //   <LeftMenuResposive
+      //     visible={visible}
+      //     close={close}
+      //     items={listItems(close)}
+      //   />
+      // )
     }
     return (
       <LeftMenuDesktop
