@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 // Containers
 import { BuscarPage } from '../../Containers/Buscar/Buscar'
 import { MainPage } from '../../Containers/Main/Main'
+import { IndexTeamPage } from '../../Containers/SizeMap/Teams'
 import { TeamPage } from '../../Containers/Team/Team'
 import { TournamentPage } from '../../Containers/Tournament/Tournament'
 
@@ -13,6 +14,7 @@ export class RouterComponent extends React.Component<any> {
         <Router>
           <Switch>
             <Route exact={true} path="/" component={MainPage} />
+            <Route exact={true} path="/indice" component={IndexTeamPage} />
             <Route path="/buscar" component={BuscarPage} />
             <Route exact={true} path="/team/:teamInfo" component={TeamPage} />
             <Route

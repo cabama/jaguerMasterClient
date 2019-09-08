@@ -19,7 +19,7 @@
     "typestyle": "^2.0.4"
   },
   "scripts": {
-    "start": "webpack-dev-server --mode development --open --hot",
+    "start": "webpack-dev-server --config webpack.config.js --mode development --open --hot",
     "start:mock": "webpack-dev-server --env.REACT_APP_MODE=DEV --env.REACT_APP_MOCK=TRUE",
     "build": "webpack --config webpack.prod.js --env.REACT_APP_MODE=PROD",
     "fix": "tslint --fix -c ./tslint.json 'src/**/*{.ts,.tsx}' verbose"

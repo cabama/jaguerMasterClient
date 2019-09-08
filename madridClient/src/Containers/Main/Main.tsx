@@ -10,7 +10,7 @@ import { useRouter } from 'Shared/router'
 export const MainPage = () => {
   const router = useRouter()
   return <div>
-    <View MenuBar={true} SideMenu={false}>
+    <View MenuBar={true} SideMenu={true}>
         <Card style={{ margin: '20px 0' }}>
           <CardHeader title="Juegos Deportivos Municipales"/>
         <CardContent>

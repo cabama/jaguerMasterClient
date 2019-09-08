@@ -1,59 +1,80 @@
-import * as React from 'react'
-import Drawer from '@material-ui/core/Drawer'
-import List from '@material-ui/core/List'
+import { Drawer } from '@material-ui/core'
 import Divider from '@material-ui/core/Divider'
-import IconButton from '@material-ui/core/IconButton'
-import ChevronLeft from '@material-ui/icons/ChevronLeft'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
-import MoveToInbox from '@material-ui/icons/MoveToInbox'
-import InsertChart from '@material-ui/icons/InsertChart'
+import * as React from 'react'
 
-import { useRouter } from 'Shared/router'
+// const drawerWidth = 240
 
-type DrawerComponentType = {
-  open: boolean
-  onOpenChange: () => void
+// const styles: StyleRulesCallback = (theme: any) => ({
+//   root: {
+//     flexGrow: 1,
+//     height: 430,
+//     zIndex: 1,
+//     overflow: 'hidden',
+//     position: 'relative',
+//     display: 'flex',
+//     width: '100%',
+//   },
+//   appBar: {
+//     position: 'absolute',
+//     marginLeft: drawerWidth,
+//     [theme.breakpoints.up('md')]: {
+//       width: `calc(100% - ${drawerWidth}px)`,
+//     },
+//   },
+//   navIconHide: {
+//     [theme.breakpoints.up('md')]: {
+//       display: 'none',
+//     },
+//   },
+//   toolbar: theme.mixins.toolbar,
+//   drawerPaper: {
+//     width: drawerWidth,
+//     [theme.breakpoints.up('md')]: {
+//       position: 'relative',
+//     },
+//   },
+//   content: {
+//     flexGrow: 1,
+//     backgroundColor: theme.palette.background.default,
+//     padding: theme.spacing.unit * 3,
+//   },
+// })
+
+interface IDrawerMenuResposiveProps {
+  classes: any
+  theme?: any
+  visible: any
+  close: any
+  items: any
 }
 
-// onClick = {() => router.history.push('team/' + props.team['Codigo_equipo'])}
+class DrawerMenuResposive extends React.Component<any, any> {
 
-export const DrawerComponent: React.FunctionComponent<DrawerComponentType> = (props) => {
-
-  const router = useRouter()
-
-  const handleClick = () => {
-    router.history.push('dashboard')
+  constructor (props: IDrawerMenuResposiveProps, state: any) {
+    super(props)
+    this.state = { mobileOpen: true}
   }
 
-  return (
-    <Drawer
-      variant="persistent"
-      anchor="left"
-      open={props.open}
-    >
-      <div>
-        <IconButton onClick={props.onOpenChange}>
-          <ChevronLeft />
-        </IconButton>
-      </div>
-      <Divider />
-      <List>
-        <ListItem button key="Dashboard" onClick={handleClick}>
-          <ListItemIcon><InsertChart /></ListItemIcon>
-          <ListItemText primary="Dashboard" />
-        </ListItem>
+  public render () {
+    const { classes, theme } = this.props
+    return (
+      <Drawer
+        variant="temporary"
+        anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+        open={this.props.visible}
+        onClose={this.props.close}
+        classes={{ paper: classes.drawerPaper}}
+        ModalProps={{ keepMounted: true }}
+      >
+        {this.props.items}
         <Divider />
-      </List>
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon><MoveToInbox /></ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-    </Drawer>
-  )
+        <div style={{ position: 'absolute', bottom: '5px', left: '15px' }}>
+          <a href="/indice">Indice</a>
+        </div>
+      </Drawer>
+    )
+  }
+
 }
+
+export const LeftMenuResposive = DrawerMenuResposive

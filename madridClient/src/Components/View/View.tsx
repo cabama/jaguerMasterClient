@@ -2,7 +2,7 @@ import * as React from 'react'
 import * as ReactGA from 'react-ga'
 import Grid from '@material-ui/core/Grid'
 import { useTheme } from '@material-ui/core'
-import { MenuElement } from '../LeftMenu/LeftMenu'
+import { MenuElement, LeftMenu } from '../LeftMenu/LeftMenu'
 import { MenuBar } from '../Menu/MenuBar'
 import { useRouter } from 'Shared/router'
 
@@ -51,8 +51,7 @@ export const View: React.FunctionComponent<IProps> = (props) => {
   const theme = useTheme()
   const router = useRouter()
   const getSideMenu = () => {
-    return null
-    // return this.props.SideMenu ? <LeftMenu menuElements={this.props.SidePageElements}/> : null
+    return props.SideMenu ? <LeftMenu menuElements={props.SidePageElements}/> : null
   }
 
   const getMenuBar = () => {
