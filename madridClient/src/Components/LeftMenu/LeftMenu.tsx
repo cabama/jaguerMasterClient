@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { default as MediaQuery } from 'react-responsive'
 import { LeftMenuDesktop } from './LeftMenuDesktop'
-import { LeftMenuResposive } from './LeftMenuResposive'
 import { useRouter } from '../../Shared/router'
 
 // List Object
@@ -20,9 +19,9 @@ export type MenuElement = {
   path: string
 }
 
-type onClose = { close: () => void }
+type OnClose = { close: () => void }
 
-type props = {
+type Props = {
   menuElements: MenuElement[] | undefined
 }
 
@@ -31,10 +30,10 @@ const menuElements = [
   { title: 'Buscar', icon: Search, path: '/buscar' }
 ]
 
-export const LeftMenu = (props: props) => {
+export const LeftMenu = (props: Props) => {
   const router = useRouter()
 
-  const makeElementList = (element: MenuElement & onClose) => {
+  const makeElementList = (element: MenuElement & OnClose) => {
     const { title, icon, path, close } = element
     const onClose = () => {
       router.history.push(path)
