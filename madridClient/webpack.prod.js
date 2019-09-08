@@ -15,6 +15,7 @@ module.exports = {
   output: {
     path: resolve('dist'),
     filename: 'bundle.js',
+    baseUrl: './'
   },
 
   // Enable sourcemaps for debugging webpack's output.
@@ -31,13 +32,6 @@ module.exports = {
       Shared: srcPath('Shared'),
       Types: srcPath('Types')
     },
-  },
-
-  devServer: {
-    port: '2222',    // Change it if other port needs to be used
-    hot: true,
-    contentBase: 'dist',
-    historyApiFallback: true
   },
 
   module: {
