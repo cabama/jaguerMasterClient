@@ -69,7 +69,7 @@ export const LeftMenu = (props: Props) => {
     const visible = true
     const close = handleCloseMenu
     if (matches) {
-      return undefined
+      return <div></div>
       // return (
       //   <LeftMenuResposive
       //     visible={visible}
