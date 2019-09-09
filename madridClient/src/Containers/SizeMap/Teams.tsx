@@ -9,11 +9,13 @@ import { jagerServiceBaseUrl } from '../../Enviroments'
 export const IndexTeamPage = () => {
   const [teams, setTeams] = React.useState([])
 
-  JagerFetch({ url: jagerServiceBaseUrl + '/api/sizemap/getAllTeamsURl' })
+  React.useEffect(() => {
+    JagerFetch({ url: jagerServiceBaseUrl + '/api/sizemap/getAllTeamsURl' })
     .then(async (value) => {
       const teamsFetched = await value.json()
       setTeams(teamsFetched)
     })
+  }, [])
 
   return <div>
     <View MenuBar={true} SideMenu={false}>

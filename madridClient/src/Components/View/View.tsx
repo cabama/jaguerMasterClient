@@ -50,6 +50,11 @@ type IProps = {
 export const View: React.FunctionComponent<IProps> = (props) => {
   const theme = useTheme()
   const router = useRouter()
+
+  React.useEffect(() => {
+    ReactGA.pageview(router.history.location.pathname)
+  }, [])
+
   const getSideMenu = () => {
     return props.SideMenu ? <LeftMenu menuElements={props.SidePageElements}/> : null
   }
@@ -64,7 +69,6 @@ export const View: React.FunctionComponent<IProps> = (props) => {
       {footer.content || undefined}
     </div>
   }
-  router.history.listen(location => ReactGA.pageview(location.pathname))
 
   return (
     <div
