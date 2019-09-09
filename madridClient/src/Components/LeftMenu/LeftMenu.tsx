@@ -27,7 +27,7 @@ type Props = {
 
 const menuElements = [
   { title: 'Main', icon: Inbox, path: '/' },
-  { title: 'Buscar', icon: Search, path: '/buscar' }
+  { title: 'Buscar Equipo', icon: Search, path: '/buscar' }
 ]
 
 export const LeftMenu = (props: Props) => {

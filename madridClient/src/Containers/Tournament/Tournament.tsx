@@ -4,17 +4,18 @@ import { View } from '../../Components/View/View'
 import { useRouter } from '../../Shared/router'
 import { jagerServiceBaseUrl } from '../../Enviroments'
 
-import { ITeamRank } from '../../Types/TeamRank'
-import { ITeamMatch } from '../../Types/TeamMatch'
-
-import { RankingTable } from './Components/RankingTable'
-import { MatchesList } from './Components/MatchesList'
-
 import BottomNavigation from '@material-ui/core/BottomNavigation'
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
 import Restore from '@material-ui/icons/Restore'
 import TableChart from '@material-ui/icons/TableChart'
 import CalendarToday from '@material-ui/icons/CalendarToday'
+
+import { ITeamRank } from '../../Types/TeamRank'
+import { ITeamMatch } from '../../Types/TeamMatch'
+
+import { RankingTable } from './Components/RankingTable'
+import { MatchesList } from './Components/MatchesList'
+import { JornadaList } from './Components/JornadaList'
 
 enum navigationView {
   'clasificacion',
@@ -149,7 +150,7 @@ export const TournamentPage = () => {
         <RankingTable ranking={tournamentRanking}/>
         <MatchesList matches={tournamentResults as any}/>
         <MatchesList matches={tournamentNextMatches as any}/>
-        <MatchesList matches={tournamentMatches as any}/>
+        <JornadaList matches={tournamentMatches as any}/>
       </Content>
 
       <BottomNavigation

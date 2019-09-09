@@ -23,8 +23,8 @@ const fetchTeams = (nombreEquipo: string, deporte: string, categoria: string): P
         method: 'POST',
         body: formData
       }
-    }).then(response => {
-      response.json().then(value => {
+    }).then((response) => {
+      response.json().then((value) => {
         res(value)
       })
     })
@@ -62,7 +62,7 @@ export const TeamPage = () => {
           color: theme.palette.primary.contrastText
         }}
       />
-      <CardContent style={{marginTop: 0}}>
+      <CardContent style={{ marginTop: 0 }}>
           Deporte: {tournament.equipo.Nombre_deporte || ''} <br/>
           Categoría:
           {tournament.equipo.Nombre_categoria || ''} /
