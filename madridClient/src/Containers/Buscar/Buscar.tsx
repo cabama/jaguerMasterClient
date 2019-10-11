@@ -85,7 +85,7 @@ export const BuscarPage = () => {
     </Paper>
 
   return <div>
-    <View MenuBar={true} SideMenu={false} footer={{ alwaysVisible: true, content: footer }}>
+    <View MenuBar={true} SideMenu={true} footer={{ alwaysVisible: true, content: footer }}>
       <div style={{ width: 'calc(90% - 20px)', padding: '10px' }}>
         <Typography component="h5" variant="h5">
           Busque su equipo:

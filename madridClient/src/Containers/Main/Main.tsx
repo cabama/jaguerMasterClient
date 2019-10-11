@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography'
 export const MainPage = () => {
   return <div>
     <View MenuBar={true} SideMenu={true}>
-        <Card style={{ margin: '20px 0' }}>
+        <Card style={{ margin: '20px 10px' }}>
         <CardContent>
         <Typography variant="h6" component="h1" gutterBottom>
         Juegos Deportivos Municipales de Madrid

@@ -1,13 +1,10 @@
 import * as React from 'react'
 import Grid from '@material-ui/core/Grid'
-import { Card, CardContent, Paper, IconButton } from '@material-ui/core'
+import { Paper, IconButton } from '@material-ui/core'
 import { ITeamMatch } from 'Types/TeamMatch'
 import ArrowLeft from '@material-ui/icons/ArrowLeft'
 import ArrowRight from '@material-ui/icons/ArrowRight'
-
-type MatchCardProps = {
-  match: ITeamMatch
-}
+import { JornadaMatchCard } from '../../../Components/MatchCard/JornadaMatchCard'
 
 type IJornadaFilter = React.FunctionComponent<{
   jornada: number,
@@ -32,7 +29,7 @@ const JornadaFilter: IJornadaFilter = (props) => {
   }
 
   const beforeJornada = () => {
-    if (props.jornada < 0) return
+    if (props.jornada <= 1) return
     props.setJornada(props.jornada - 1)
   }
 
@@ -42,22 +39,6 @@ const JornadaFilter: IJornadaFilter = (props) => {
       Jornada {props.jornada}
       <IconButton> <ArrowRight onClick={() => { nextJornada() }}/></IconButton>
     </Paper>
-  )
-}
-
-export const MatchCard = (props: MatchCardProps) => {
-  const { match } = props
-  const date = new Date(match.Date)
-  return (
-      <Card style={{ margin: '10px 0px', width: '100%' }}>
-        <CardContent>
-          <p>Lugar: {match.Campo}</p>
-          <p>Fecha: {date.toLocaleDateString()} {date.toLocaleTimeString()}</p>
-          <p>Visitante: {match.Equipo_visitante}</p>
-          <p>Resultado Local: {match.Resultado1}</p>
-          <p>Resultado Visitante: {match.Resultado2}</p>
-        </CardContent>
-      </Card>
   )
 }
 
@@ -77,7 +58,7 @@ export const JornadaList = (props: MatchesListProps) => {
       { matchesFromJornada.map((match, key) => (
         <Grid container  justify="center" >
           <Grid item xs={11} sm={10} md={9} xl={8} key={'match-' + key}>
-            <MatchCard match={match}/>
+            <JornadaMatchCard match={match} />
           </Grid>
         </Grid>
       )

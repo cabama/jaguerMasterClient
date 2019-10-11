@@ -18,7 +18,7 @@ export const IndexTeamPage = () => {
   }, [])
 
   return <div>
-    <View MenuBar={true} SideMenu={false}>
+    <View MenuBar={true} SideMenu={true}>
         <Card style={{ margin: '20px 0' }}>
         <CardHeader title="Indice de equipos"/>
         <CardContent>
