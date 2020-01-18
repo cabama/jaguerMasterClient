@@ -13,4 +13,4 @@ export function getUrlsEnviroment(): IUrlsEnv {
 
 export const jagerServiceBaseUrl = false
   ? 'http://localhost:2525'
-  : 'https://juegosdeportivosmunicipales.es/api'
+  : 'https://juegosdeportivosmunicipales.es'
