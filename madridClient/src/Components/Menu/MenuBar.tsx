@@ -4,7 +4,11 @@ import IconButton from '@material-ui/core/IconButton'
 import Toolbar from '@material-ui/core/Toolbar'
 import Menu from '@material-ui/icons/Menu'
 
-export const MenuBar: React.FunctionComponent = (props: any) => {
+type Props = {
+  onClickMenuIcon: () => void
+}
+
+export const MenuBar: React.FunctionComponent<Props> = (props) => {
   return (
     <div >
       <AppBar position="fixed" style={{ height: '65px' }}>
@@ -12,7 +16,7 @@ export const MenuBar: React.FunctionComponent = (props: any) => {
           <IconButton
             color="inherit"
             aria-label="Menu"
-            onClick={props.changeDrawableView}
+            onClick={props.onClickMenuIcon}
           >
             <Menu />
           </IconButton>

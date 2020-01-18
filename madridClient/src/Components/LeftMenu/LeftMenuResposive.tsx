@@ -56,14 +56,12 @@ class DrawerMenuResposive extends React.Component<any, any> {
   }
 
   public render () {
-    const { classes, theme } = this.props
     return (
       <Drawer
         variant="temporary"
-        anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+        anchor={'left'}
         open={this.props.visible}
         onClose={this.props.close}
-        classes={{ paper: classes.drawerPaper}}
         ModalProps={{ keepMounted: true }}
       >
         {this.props.items}

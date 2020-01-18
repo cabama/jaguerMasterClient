@@ -51,16 +51,29 @@ export const View: React.FunctionComponent<IProps> = (props) => {
   const theme = useTheme()
   const router = useRouter()
 
+  const [menuVisible, setMenuVisible] = React.useState(false)
+
   React.useEffect(() => {
     ReactGA.pageview(router.history.location.pathname)
   }, [])
 
   const getSideMenu = () => {
-    return props.SideMenu ? <LeftMenu menuElements={props.SidePageElements}/> : null
+    return props.SideMenu
+      ? <LeftMenu
+        menuElements={props.SidePageElements}
+        visible={menuVisible}
+        handleCloseMenu={() => { setMenuVisible(!menuVisible) }}
+      />
+      : null
   }
 
   const getMenuBar = () => {
-    return props.MenuBar ? <MenuBar /> : null
+    return props.MenuBar
+      ? <MenuBar  onClickMenuIcon={() => {
+        setMenuVisible(!menuVisible)
+      }
+      }/>
+      : null
   }
 
   const getFooter = (footer?: {alwaysVisible: boolean, content: any}) => {

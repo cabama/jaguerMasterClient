@@ -29,7 +29,7 @@ const styles: StyleRulesCallback<any, any> = (theme) => ({
   toolbar: theme.mixins.toolbar
 })
 
-export function DrawerMenu(props: any) {
+export function drawerMenu(props: any) {
 
   const { classes } = props
 
@@ -48,4 +48,4 @@ export function DrawerMenu(props: any) {
   )
 }
 
-export const LeftMenuDesktop = withStyles(styles)(DrawerMenu)
+export const LeftMenuDesktop = withStyles(styles)(drawerMenu)

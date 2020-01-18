@@ -42,7 +42,7 @@ export const TournamentCard: ITournamentCard = (props) => {
       <CardContent>
         {props.tours && typeof props.tours === 'object'
           ? props.tours.map((tournament, index) =>
-          <div>
+          <div key={String(index)}>
             <ListItem button component="a" onClick={() => goToTournament(props.team, tournament)}>
               <ListItemText
                 key={index}

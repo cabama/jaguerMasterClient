@@ -22,8 +22,9 @@ export const IndexTeamPage = () => {
         <Card style={{ margin: '20px 0' }}>
         <CardHeader title="Indice de equipos"/>
         <CardContent>
-            {teams.map((team: string) => (
+            {teams.map((team: string, index: number) => (
               <a
+                key={String(index)}
                 style={{ display: 'block' }}
                 href={'team/' + team}>{
                   decodeURIComponent(team.split('::')[0])

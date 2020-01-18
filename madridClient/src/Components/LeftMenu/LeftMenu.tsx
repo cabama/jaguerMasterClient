@@ -2,6 +2,7 @@ import * as React from 'react'
 import { default as MediaQuery } from 'react-responsive'
 import { LeftMenuDesktop } from './LeftMenuDesktop'
 import { useRouter } from '../../Shared/router'
+import { LeftMenuResposive } from './LeftMenuResposive'
 
 // List Object
 import Divider from '@material-ui/core/Divider'
@@ -23,6 +24,8 @@ type OnClose = { close: () => void }
 
 type Props = {
   menuElements: MenuElement[] | undefined
+  handleCloseMenu: () => void
+  visible: boolean
 }
 
 const menuElements = [
@@ -30,9 +33,8 @@ const menuElements = [
   { title: 'Buscar Equipo', icon: Search, path: '/buscar' }
 ]
 
-export const LeftMenu = (props: Props) => {
+export const LeftMenu: React.FC<Props> = (props) => {
   const router = useRouter()
-
   const makeElementList = (element: MenuElement & OnClose) => {
     const { title, icon, path, close } = element
     const onClose = () => {
@@ -61,26 +63,20 @@ export const LeftMenu = (props: Props) => {
     return [...commonElements, <Divider />, ...inPageElement]
   }
 
-  const handleCloseMenu = () => {
-    console.log('Close Menu Again')
-  }
-
-  const getDrawableMenu = (matches: boolean) => {
-    const visible = true
-    const close = handleCloseMenu
+  const getDrawableMenu = (matches: boolean, isVisible: boolean) => {
+    const close = props.handleCloseMenu
     if (matches) {
-      return <div></div>
-      // return (
-      //   <LeftMenuResposive
-      //     visible={visible}
-      //     close={close}
-      //     items={listItems(close)}
-      //   />
-      // )
+      return (
+        <LeftMenuResposive
+          visible={isVisible}
+          close={close}
+          items={listItems(close)}
+        />
+      )
     }
     return (
       <LeftMenuDesktop
-        visible={visible}
+        visible={isVisible}
         close={close}
         items={listItems(close)}
       />
@@ -89,7 +85,7 @@ export const LeftMenu = (props: Props) => {
 
   return (
     <MediaQuery maxDeviceWidth={1224}>
-      {matches => getDrawableMenu(matches)}
+      {matches => getDrawableMenu(matches, props.visible)}
     </MediaQuery>
   )
 }
