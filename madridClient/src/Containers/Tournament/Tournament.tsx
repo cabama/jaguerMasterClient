@@ -143,7 +143,7 @@ export const TournamentPage = () => {
   }
 
   return (
-    <View MenuBar={true} SideMenu={false}>
+    <View MenuBar={true} SideMenu={true}>
       <div className="tournamentView" />
 
       <Content navigation={navigation}>
