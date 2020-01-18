@@ -3,7 +3,7 @@ import Divider from '@material-ui/core/Divider'
 import { StyleRulesCallback, withStyles } from '@material-ui/core/styles'
 import * as React from 'react'
 
-const styles: StyleRulesCallback<any, any> = (theme) => ({
+const styles: StyleRulesCallback<any, any> = theme => ({
   root: {
     flexGrow: 1,
     zIndex: 1,

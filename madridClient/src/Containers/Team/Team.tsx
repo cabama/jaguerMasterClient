@@ -69,7 +69,7 @@ export const TeamPage = () => {
           {tournament.equipo['Nombre-Sexo'] || ''}
       </CardContent>
     </Card>
-    <Typography component="h5" variant="h5" style={{ margin: '20px 0', width: '90%'}}>
+    <Typography component="h5" variant="h5" style={{ margin: '20px 0', width: '90%' }}>
       Competiciones
     </Typography>
     {

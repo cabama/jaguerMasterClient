@@ -5,7 +5,7 @@ import CardHeader from '@material-ui/core/CardHeader'
 import CardContent from '@material-ui/core/CardContent'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
-import Divider from '@material-ui/core/Divider';
+import Divider from '@material-ui/core/Divider'
 
 import { useTheme } from '@material-ui/core'
 import { useRouter } from 'Shared/router'

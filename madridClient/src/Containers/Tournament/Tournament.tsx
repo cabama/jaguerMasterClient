@@ -37,8 +37,8 @@ const fetchTournamentRanking = (teamId: string, tournament: string[]): Promise<I
       init: {
         method: 'GET'
       }
-    }).then(response => {
-      response.json().then(value => {
+    }).then((response) => {
+      response.json().then((value) => {
         res(value)
       })
     })
@@ -56,8 +56,8 @@ const fetchTournamentMatches = (tournament: string[]) => {
       init: {
         method: 'GET'
       }
-    }).then(response => {
-      response.json().then(value => {
+    }).then((response) => {
+      response.json().then((value) => {
         res(value)
       })
     })
@@ -75,8 +75,8 @@ const fetchTournamentResults = (teamCode: string, tournament: string[]) => {
       init: {
         method: 'GET'
       }
-    }).then(response => {
-      response.json().then(value => {
+    }).then((response) => {
+      response.json().then((value) => {
         res(value)
       })
     })
@@ -94,8 +94,8 @@ const fetchTournamentNextMatches = (teamCode: string, tournament: string[]) => {
       init: {
         method: 'GET'
       }
-    }).then(response => {
-      response.json().then(value => {
+    }).then((response) => {
+      response.json().then((value) => {
         res(value)
       })
     })
