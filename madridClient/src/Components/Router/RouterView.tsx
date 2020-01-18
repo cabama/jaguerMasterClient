@@ -7,6 +7,7 @@ import { MainPage } from '../../Containers/Main/Main'
 import { IndexTeamPage } from '../../Containers/SizeMap/Teams'
 import { TeamPage } from '../../Containers/Team/Team'
 import { TournamentPage } from '../../Containers/Tournament/Tournament'
+import { TournamentPage as TournamentQuery } from '../../Containers/Tournament/TournamentQuery'
 
 export class RouterComponent extends React.Component<any> {
   public render() {
@@ -21,6 +22,11 @@ export class RouterComponent extends React.Component<any> {
               exact={true}
               path="/tournament/:teamId/:tournamentId"
               component={TournamentPage}
+            />
+            <Route
+              exact={true}
+              path="/competicion"
+              component={TournamentQuery}
             />
           </Switch>
         </Router>

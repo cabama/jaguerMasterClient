@@ -11,3 +11,8 @@ export const routerContext = __RouterContext
 export const useRouter = () => {
   return useContext(routerContext)
 }
+
+export function useQuery() {
+  const router = useRouter()
+  return new URLSearchParams(router.location.search)
+}

@@ -81,7 +81,8 @@ export const TeamPage = () => {
           <TournamentCard
             key={competicion.Codigo_equipo}
             tournamentName={nombreCompeticion}
-            team={ competicion.Codigo_equipo }
+            teamId={ competicion.Codigo_equipo }
+            teamName={ competicion.Nombre_equipo }
             tours={ competicion.tournaments as any[] }
           />
         )
